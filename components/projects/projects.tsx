@@ -46,7 +46,7 @@ const PROJECTS: Project[] = [
     title: "GPU-Accelerated Optimization",
     description:
       "Predicting whether workloads belong on the CPU or GPU using workload characteristics, machine learning models, and benchmarked workloads.",
-    meta: "ML Research · Paper Under Review . Private Repo",
+    meta: "ML Research · Paper Under Review · Private Repo",
     imageRatio: "aspect-[16/10]",
     image: "/projects/gpu-optimization.png",
     imageAlt: "GPU optimization research benchmark results",
