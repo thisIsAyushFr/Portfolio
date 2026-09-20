@@ -27,6 +27,32 @@ type Project = {
 
 const PROJECTS: Project[] = [
   {
+    id: "studylens",
+    icon: Sparkles,
+    iconLabel: "StudyLens",
+    title: "StudyLens",
+    description:
+      "An AI-powered study assistant built around RAG, enabling students to ask questions from their notes, trace answers to source pages, generate quizzes, and evaluate retrieval quality.",
+    meta: "AI / RAG · Python · ChromaDB",
+    imageRatio: "aspect-[16/10]",
+    image: "/projects/studylens.png",
+    imageAlt: "StudyLens AI study assistant interface",
+    github: "https://github.com/thisIsAyushFr/StudyLens",
+  },
+  {
+    id: "gpu-optimization",
+    icon: LineChart,
+    iconLabel: "GPU Optimization",
+    title: "GPU-Accelerated Optimization",
+    description:
+      "Predicting whether workloads belong on the CPU or GPU using workload characteristics, machine learning models, and benchmarked workloads.",
+    meta: "ML Research · Paper Under Review",
+    imageRatio: "aspect-[16/10]",
+    image: "/projects/gpu-optimization.png",
+    imageAlt: "GPU optimization research benchmark results",
+    github: "https://github.com/thisIsAyushFr/GPU-accelerated-optimization",
+  },
+  {
     id: "caresync",
     icon: Layers,
     iconLabel: "CareSync",
@@ -54,17 +80,18 @@ const PROJECTS: Project[] = [
     github: "https://github.com/thisIsAyushFr/PromptForge",
   },
   {
-    id: "gpu-optimization",
-    icon: LineChart,
-    iconLabel: "GPU Optimization",
-    title: "GPU-Accelerated Optimization",
+    id: "nexus",
+    icon: Sparkles,
+    iconLabel: "NEXUS",
+    title: "NEXUS",
     description:
-      "Predicting whether workloads belong on the CPU or GPU using workload characteristics, machine learning models, and benchmarked workloads.",
-    meta: "ML Research · Paper Under Review",
+      "An asteroid survival game that adapts to the player, with optional facial-expression and voice/audio interaction using computer vision and audio analysis.",
+    meta: "DOMination · JavaScript · Computer Vision · Audio",
     imageRatio: "aspect-[16/10]",
-    image: "/projects/gpu-optimization.png",
-    imageAlt: "GPU optimization research benchmark results",
-    github: "https://github.com/thisIsAyushFr/GPU-accelerated-optimization",
+    image: "/projects/nexus.png",
+    imageAlt: "NEXUS emotion-driven asteroid survival game",
+    github: "https://github.com/thisIsAyushFr/Nexus-Emotion-Detection",
+    live: "https://c2c-event.vercel.app/",
   },
   {
     id: "bookverse",
@@ -79,20 +106,6 @@ const PROJECTS: Project[] = [
     imageAlt: "BookVerse library management dashboard",
     github: "https://github.com/thisIsAyushFr/BookVerse",
     live: "https://thisisbookverse.vercel.app/",
-  },
-  {
-    id: "nexus",
-    icon: Sparkles,
-    iconLabel: "NEXUS",
-    title: "NEXUS",
-    description:
-      "An asteroid survival game that adapts to the player, with optional facial-expression and voice/audio interaction using computer vision and audio analysis.",
-    meta: "DOMination · JavaScript · Computer Vision · Audio",
-    imageRatio: "aspect-[16/10]",
-    image: "/projects/nexus.png",
-    imageAlt: "NEXUS emotion-driven asteroid survival game",
-    github: "https://github.com/thisIsAyushFr/Nexus-Emotion-Detection",
-    live: "https://c2c-event.vercel.app/",
   },
   {
     id: "focusboard",
