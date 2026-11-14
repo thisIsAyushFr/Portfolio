@@ -47,7 +47,7 @@ export function Header(): ReactNode {
             className="focus-ring t-h3 leading-none"
             aria-label="Ayush, home"
           >
-            Ayush<span className="text-amber">.</span>
+            Ayush
           </Link>
 
           <nav aria-label="Primary" className="hidden md:block">
