@@ -17,7 +17,7 @@ function isActive(pathname: string, href: string): boolean {
 
 export function Header(): ReactNode {
   const pathname = usePathname();
-  const { scrollY } = useScroll();
+  const { scrollY, scrollYProgress } = useScroll();
   const [hidden, setHidden] = useState(false);
   const [solid, setSolid] = useState(false);
   const [open, setOpen] = useState(false);
@@ -30,6 +30,13 @@ export function Header(): ReactNode {
 
   return (
     <>
+      {/* Reading progress: a thin line that fills as the page scrolls. */}
+      <motion.div
+        aria-hidden="true"
+        style={{ scaleX: scrollYProgress }}
+        className="fixed inset-x-0 top-0 z-[60] h-1 origin-left bg-amber"
+      />
+
       <motion.header
         initial={false}
         animate={{ y: hidden && !open ? "-130%" : "0%" }}

@@ -59,7 +59,7 @@ export function Footer(): ReactNode {
 
       <p
         aria-hidden="true"
-        className="mt-16 text-center font-display text-[31vw] leading-[1.02] text-pine uppercase select-none md:mt-20"
+        className="mt-16 text-center font-display text-[31vw] leading-[1.02] text-transparent transition-colors duration-700 [-webkit-text-stroke:2px_var(--amber)] hover:text-amber uppercase select-none md:mt-20"
       >
         Ayush
       </p>

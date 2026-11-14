@@ -18,7 +18,7 @@ export function ProjectShot({
 }): ReactNode {
   return (
     <div
-      className={`overflow-hidden rounded-lg bg-cream-light shadow-[0_30px_60px_-30px_rgba(4,18,13,0.65)] ring-1 ring-black/10 ${className}`}
+      className={`overflow-hidden rounded-lg bg-cream-light shadow-[0_30px_60px_-30px_rgba(4,18,13,0.65)] ring-1 ring-black/10 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-2 group-hover:-rotate-1 ${className}`}
     >
       <div
         aria-hidden="true"
