@@ -105,12 +105,12 @@ function PolaroidCard({
         y: ty,
         rotate: photo.rotate,
       }}
-      className="relative aspect-[3/4] w-[clamp(5.5rem,10vw,8rem)] shrink-0 overflow-hidden rounded-2xl border-6 border-neutral-300/40 bg-white p-1.5 dark:border-white/15 dark:bg-neutral-900"
+      className="relative aspect-[3/4] w-[clamp(5.5rem,10vw,8.5rem)] shrink-0 bg-cream-light p-1.5 pb-5 shadow-[0_16px_30px_-16px_rgba(9,37,28,0.6)] ring-1 ring-forest/15"
     >
       <img
         src={photo.src}
         alt=""
-        className="h-full w-full rounded-xl object-cover"
+        className="h-full w-full object-cover"
         draggable={false}
       />
     </motion.div>
@@ -137,7 +137,7 @@ export function PolaroidStrip(): ReactNode {
 
   return (
     <>
-      <div className="flex w-full flex-wrap items-start justify-center gap-1 px-4 pb-4 sm:gap-1.5 sm:px-8 sm:pb-6">
+      <div className="flex w-full flex-wrap items-start justify-center gap-2 px-4 pb-4 sm:gap-3 sm:px-8 sm:pb-6">
         {PHOTOS.map((photo, i) => (
           <PolaroidCard
             key={photo.id}
@@ -173,11 +173,11 @@ export function PolaroidStrip(): ReactNode {
             }}
             className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center p-6"
           >
-            <div className="relative max-h-[82vh] max-w-[78vw] overflow-hidden rounded-3xl border-8 border-white bg-white p-2 shadow-2xl dark:border-neutral-800 dark:bg-neutral-800">
+            <div className="relative max-h-[82vh] max-w-[78vw] bg-cream-light p-2 pb-8 shadow-2xl ring-1 ring-forest/15">
               <img
                 src={hoveredPhoto.src}
                 alt=""
-                className="max-h-[76vh] max-w-[72vw] rounded-2xl object-contain"
+                className="max-h-[72vh] max-w-[72vw] object-contain"
                 draggable={false}
               />
             </div>

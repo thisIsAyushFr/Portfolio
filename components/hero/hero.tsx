@@ -1,54 +1,268 @@
-import type { ReactNode } from "react";
+"use client";
 
-import { HeroCtas } from "./hero-ctas";
-import { FadeIn, ScaleUnblur } from "@/components/ui/motion-primitives";
-import { PortraitMorph } from "./portrait-morph";
+import { FolderOpen, UserRound } from "lucide-react";
+import {
+  motion,
+  useMotionTemplate,
+  useScroll,
+  useTransform,
+} from "motion/react";
+import Link from "next/link";
+import { useRef, type ComponentType, type ReactNode } from "react";
 
-const PORTRAIT_SRC = "/ayush.png";
-const PORTRAIT_HOVER_SRC = "/ayush_wave.png";
+import { Label } from "@/components/ui/primitives";
+import { ProjectShot } from "@/components/ui/project-shot";
+import { PROJECTS, type Project } from "@/lib/data";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+const clamp01 = (value: number): number => Math.min(1, Math.max(0, value));
+
+// Featured in the hero stack: one in front, two fanned out behind it.
+const CENTER = PROJECTS[0] as Project;
+const SIDE_LEFT = PROJECTS[2] as Project;
+const SIDE_RIGHT = PROJECTS[3] as Project;
 
 export function Hero(): ReactNode {
+  const ref = useRef<HTMLElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end end"],
+  });
+
+  // The shift distance is a CSS variable so small screens can move less.
+  const contentProgress = useTransform(scrollYProgress, [0, 0.8], [0, 1]);
+  const contentY = useMotionTemplate`calc(${contentProgress} * var(--hero-shift))`;
+  const contentScale = useTransform(scrollYProgress, [0, 0.8], [1, 0.86]);
+  const stackY = useTransform(scrollYProgress, [0, 0.8], ["62%", "-6%"]);
+  const stackScale = useTransform(scrollYProgress, [0, 0.8], [0.84, 1]);
+  // The side cards start tucked behind the front one and fan out.
+  const leftX = useTransform(scrollYProgress, [0, 0.8], ["30%", "0%"]);
+  const rightX = useTransform(scrollYProgress, [0, 0.8], ["-30%", "0%"]);
+  const leftRotate = useTransform(scrollYProgress, [0, 0.8], [0, -7]);
+  const rightRotate = useTransform(scrollYProgress, [0, 0.8], [0, 7]);
+  const glowScale = useTransform(scrollYProgress, [0, 1], [0.7, 1.5]);
+  // Function-form transforms on purpose: range-mapped opacity gets handed to a
+  // native scroll timeline that tracks the whole page, not this section.
+  const hotspotOpacity = useTransform(() =>
+    clamp01((scrollYProgress.get() - 0.5) / 0.25)
+  );
+  const hintOpacity = useTransform(
+    () => 1 - clamp01(scrollYProgress.get() / 0.12)
+  );
+
   return (
-    <section className="relative w-full">
-      <div className="mx-auto w-full max-w-275 px-6 pt-44 pb-24 sm:px-10 sm:pt-56 sm:pb-32">
-        <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-8">
-          <FadeIn className="flex flex-col gap-4">
-            <p className="text-[20px] leading-tight tracking-tight font-medium text-foreground">
-              Hey
-              <span aria-hidden="true" className="mx-0.5">
-                👋
-              </span>
-              , I&rsquo;m Ayush
-            </p>
+    <section ref={ref} className="relative h-[210vh] bg-cream">
+      <div className="sticky top-0 h-screen overflow-hidden">
+        {/* Sky */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-linear-to-b from-cream-light via-cream to-[#e9bd8f]"
+        />
+        <motion.div
+          aria-hidden="true"
+          style={{ scale: glowScale }}
+          className="absolute bottom-[-30vh] left-1/2 h-[90vh] w-[90vh] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(165,87,4,0.34)_0%,rgba(165,87,4,0.14)_38%,transparent_68%)]"
+        />
 
-            <h1 className="text-[2.75rem] font-medium leading-[1.05] tracking-tight text-foreground md:text-[2.5rem] lg:text-[3.65rem]">
-              <span className="block whitespace-nowrap">
-                  Computer Science &
-              </span>
-              <span className="block whitespace-nowrap">AI/ML Engineer</span>
-            </h1>
+        {/* Copy */}
+        <motion.div
+          style={{ y: contentY, scale: contentScale }}
+          className="relative flex origin-top flex-col items-center px-[var(--margin)] pt-[max(7rem,15vh)] text-center text-forest [--hero-shift:-4vh] md:[--hero-shift:-19vh]"
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
+          >
+            <Label>Hey, I&rsquo;m Ayush</Label>
+          </motion.div>
 
-            <p className="max-w-[34ch] text-[22px] leading-[1.4] tracking-tight text-foreground/65">
-              Computer Science student building software, AI systems, and
-              research-driven projects.
-            </p>
+          <h1 className="t-xl mt-7 sm:mt-9">
+            <HeroLine delay={0.2}>
+              Computer <br className="sm:hidden" />
+              Science &amp;
+            </HeroLine>
+            <HeroLine delay={0.32}>AI/ML Engineer</HeroLine>
+          </h1>
 
-            <HeroCtas />
-          </FadeIn>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.55, ease: EASE }}
+            className="t-body mt-7 max-w-[36ch] sm:mt-9"
+          >
+            Computer Science student building software, AI systems, and
+            research-driven projects.
+          </motion.p>
+        </motion.div>
 
-          <ScaleUnblur className="flex justify-stretch md:justify-end">
-            <div className="relative aspect-square w-full md:max-w-105 overflow-hidden rounded-4xl border border-foreground/8 bg-background p-1.5 shadow-sm">
-              <div className="relative h-full w-full overflow-hidden rounded-[1.6rem]">
-                <PortraitMorph
-                  srcA={PORTRAIT_SRC}
-                  srcB={PORTRAIT_HOVER_SRC}
-                  alt="Ayush portrait"
-                />
+        {/* Rising stack of real work */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center">
+          <motion.div
+            style={{ y: stackY, scale: stackScale }}
+            className="pointer-events-auto relative aspect-[5/2] w-[min(92vw,60rem)] origin-bottom will-change-transform"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 120 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.4, delay: 0.5, ease: EASE }}
+              className="absolute inset-0"
+            >
+              <motion.div
+                style={{ x: leftX, rotate: leftRotate }}
+                className="absolute top-[16%] left-0 w-[44%]"
+              >
+                <ProjectShot project={SIDE_LEFT} eager />
+              </motion.div>
+              <motion.div
+                style={{ x: rightX, rotate: rightRotate }}
+                className="absolute top-[16%] right-0 w-[44%]"
+              >
+                <ProjectShot project={SIDE_RIGHT} eager />
+              </motion.div>
+              <div className="absolute top-0 left-[22%] w-[56%]">
+                <ProjectShot project={CENTER} eager />
               </div>
-            </div>
-          </ScaleUnblur>
+            </motion.div>
+
+            <motion.div style={{ opacity: hotspotOpacity }}>
+              <Hotspot
+                href="/projects"
+                label="Explore projects"
+                icon={FolderOpen}
+                side="left"
+                className="top-[-62%] left-[9%] md:top-[58%] md:left-[-5%]"
+              />
+              <Hotspot
+                href="/about"
+                label="About me"
+                icon={UserRound}
+                side="right"
+                className="top-[-24%] left-[91%] md:top-[58%] md:left-[105%]"
+              />
+            </motion.div>
+          </motion.div>
         </div>
+
+        <motion.div
+          aria-hidden="true"
+          style={{ opacity: hintOpacity }}
+          className="t-label absolute bottom-6 left-[var(--margin)] hidden items-center gap-3 text-forest sm:flex"
+        >
+          <span className="inline-block h-8 w-px bg-forest" />
+          Scroll
+        </motion.div>
       </div>
     </section>
+  );
+}
+
+function HeroLine({
+  children,
+  delay,
+}: {
+  children: ReactNode;
+  delay: number;
+}): ReactNode {
+  return (
+    <span className="block overflow-hidden pt-[0.08em]">
+      <motion.span
+        initial={{ y: "105%" }}
+        animate={{ y: "0%" }}
+        transition={{ duration: 1, delay, ease: EASE }}
+        className="block"
+      >
+        {children}
+      </motion.span>
+    </span>
+  );
+}
+
+/**
+ * A marker pinned beside the project stack. On desktop the flag points away
+ * from the stack; on small screens it points inward so it stays on screen.
+ */
+function Hotspot({
+  href,
+  label,
+  icon: Icon,
+  side,
+  className,
+}: {
+  href: string;
+  label: string;
+  icon: ComponentType<{ className?: string; strokeWidth?: number }>;
+  side: "left" | "right";
+  className: string;
+}): ReactNode {
+  const outward = side === "left" ? "leftward" : "rightward";
+  const inward = side === "left" ? "rightward" : "leftward";
+
+  return (
+    <Link
+      href={href}
+      data-open="true"
+      className={`hotspot focus-ring group absolute z-10 block -translate-x-1/2 -translate-y-1/2 rounded-full ${className}`}
+    >
+      <span className="relative flex h-12 w-12 items-center justify-center rounded-full bg-forest text-cream-light transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110">
+        <Icon className="h-4.5 w-4.5" strokeWidth={2.25} />
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 60 60"
+          className="hotspot-ring absolute -inset-1.5 h-[calc(100%+0.75rem)] w-[calc(100%+0.75rem)] text-forest"
+        >
+          <circle
+            cx="30"
+            cy="30"
+            r="29"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.25"
+            strokeDasharray="3 5"
+          />
+        </svg>
+      </span>
+      <Flag direction={outward} className="hidden md:block">
+        {label}
+      </Flag>
+      <Flag direction={inward} className="md:hidden">
+        {label}
+      </Flag>
+    </Link>
+  );
+}
+
+function Flag({
+  children,
+  direction,
+  className,
+}: {
+  children: ReactNode;
+  direction: "leftward" | "rightward";
+  className: string;
+}): ReactNode {
+  const leftward = direction === "leftward";
+  return (
+    <span
+      className={`hotspot-flag absolute top-1/2 -translate-y-1/2 ${
+        leftward
+          ? "hotspot-flag--left right-[calc(100%+0.6rem)]"
+          : "left-[calc(100%+0.6rem)]"
+      } ${className}`}
+    >
+      <span
+        className={`t-h8 block bg-forest py-4 whitespace-nowrap text-cream-light ${
+          leftward ? "pr-7 pl-4" : "pr-4 pl-7"
+        }`}
+        style={{
+          clipPath: leftward
+            ? "polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%)"
+            : "polygon(12px 0, 100% 0, 100% 100%, 12px 100%, 0 50%)",
+        }}
+      >
+        {children}
+      </span>
+    </span>
   );
 }

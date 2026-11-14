@@ -374,19 +374,15 @@ export function Stack(): ReactNode {
   }, [resetKey]);
 
   return (
-    <div className="flex flex-col gap-3">
-      <div className="flex items-center gap-3">
-        <h3 className="text-foreground text-[15px] font-semibold tracking-tight">
-          Stack
-        </h3>
-      </div>
+    <div>
+      <h3 className="t-label mb-4 opacity-70">Stack &mdash; drag them around</h3>
 
-      <div className="border-foreground/5 bg-foreground/2 dark:bg-foreground/5 relative h-40 overflow-hidden rounded-4xl border sm:h-64">
+      <div className="relative h-56 overflow-hidden border border-current/30 sm:h-72">
         <button
           type="button"
           onClick={() => setResetKey((k) => k + 1)}
           aria-label="Reset stack"
-          className="focus-ring border-foreground/8 bg-background text-foreground/70 hover:text-foreground absolute top-3 right-3 z-20 inline-flex h-9 w-9 items-center justify-center rounded-xl border transition-colors"
+          className="focus-ring absolute top-3 right-3 z-20 inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-amber text-cream-light transition-transform duration-500 hover:-rotate-180"
         >
           <RotateCcw
             className="h-4 w-4"
@@ -434,7 +430,7 @@ export function Stack(): ReactNode {
 function ChipPill({ chip }: { chip: Chip }): ReactNode {
   return (
     <div
-      className="dark:ring-1 dark:ring-white/15 inline-flex items-center gap-2 p-1 pr-2 text-[15px] font-medium tracking-tight sm:text-[16px]"
+      className=" inline-flex items-center gap-2 p-1 pr-2 text-[15px] font-medium tracking-tight sm:text-[16px]"
       style={{
         backgroundColor: chip.bg,
         color: chip.fg,

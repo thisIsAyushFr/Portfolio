@@ -1,6 +1,11 @@
-import { ContactCard } from "@/components/contact/contact-card";
 import { Hero } from "@/components/hero/hero";
-import { Projects } from "@/components/projects/projects";
+import { Journey } from "@/components/site/journey";
+import { Marquee } from "@/components/site/marquee";
+import { Moments } from "@/components/site/moments";
+import { MoreWork } from "@/components/site/more-work";
+import { ScrollText } from "@/components/site/scroll-text";
+import { Trail } from "@/components/site/trail";
+import { SKILLS } from "@/lib/data";
 import { createMetadata, siteConfig } from "@/lib/metadata";
 
 import type { Metadata } from "next";
@@ -14,21 +19,18 @@ export const metadata: Metadata = createMetadata({
 
 export default function HomePage(): ReactNode {
   return (
-    <main
-      id="main-content"
-      className="flex flex-1 flex-col gap-20 sm:gap-28"
-    >
+    <main id="main-content">
       <Hero />
-
-      <Projects
-        withHeadline
-        viewMoreVisible
-        headline="A few projects across software, AI, and research."
+      <ScrollText
+        label="Curious by default"
+        text="A Computer Science & Engineering student specializing in AI/ML, passionate about building software, exploring intelligent systems, and turning ideas into practical products."
+        cta={{ href: "/about", label: "About me" }}
       />
-
-      <ContactCard />
-
-      <div className="h-12 sm:h-16" />
+      <Moments />
+      <Trail />
+      <Marquee items={SKILLS} className="bg-forest text-cream" />
+      <Journey />
+      <MoreWork />
     </main>
   );
 }
