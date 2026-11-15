@@ -382,7 +382,7 @@ export function Stack(): ReactNode {
           type="button"
           onClick={() => setResetKey((k) => k + 1)}
           aria-label="Reset stack"
-          className="focus-ring absolute top-3 right-3 z-20 inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-amber text-cream-light transition-transform duration-500 hover:-rotate-180"
+          className="focus-ring absolute top-3 right-3 z-20 inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-accent text-cream-light transition-transform duration-500 hover:-rotate-180"
         >
           <RotateCcw
             className="h-4 w-4"

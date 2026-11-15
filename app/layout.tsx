@@ -2,6 +2,8 @@ import { ContactPromo } from "@/components/site/contact-promo";
 import { Footer } from "@/components/site/footer";
 import { Header } from "@/components/layout/header";
 import { Providers } from "@/components/layout/providers";
+import { IntroLoader } from "@/components/motion/intro-loader";
+import { INTRO_SCRIPT } from "@/lib/intro";
 import { SkipToContent } from "@/components/layout/skip-to-content";
 import { baseMetadata } from "@/lib/metadata";
 import type { Metadata, Viewport } from "next";
@@ -31,7 +33,7 @@ const anton = Anton({
 export const metadata: Metadata = baseMetadata;
 
 export const viewport: Viewport = {
-  themeColor: "#f3d2af",
+  themeColor: "#eeead7",
   colorScheme: "light",
   width: "device-width",
   initialScale: 1,
@@ -44,10 +46,15 @@ export default function RootLayout({
   children: ReactNode;
 }>): ReactNode {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${anton.variable} min-h-screen font-sans antialiased`}
       >
+        <script dangerouslySetInnerHTML={{ __html: INTRO_SCRIPT }} />
+        <noscript>
+          <style>{`.intro-loader{display:none}`}</style>
+        </noscript>
+        <IntroLoader />
         <Providers>
           <SkipToContent />
           <Header />

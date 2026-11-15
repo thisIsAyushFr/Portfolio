@@ -6,7 +6,7 @@ export default function NotFound(): ReactNode {
   return (
     <main
       id="main-content"
-      className="flex min-h-screen flex-col items-center justify-center bg-linear-to-b from-cream-light to-cream px-[var(--margin)] py-40 text-center text-forest"
+      className="flex min-h-screen flex-col items-center justify-center bg-linear-to-b from-cream-light to-cream px-[var(--margin)] py-40 text-center text-ink"
     >
       <Label>Error 404</Label>
       <h1 className="t-xl mt-8">
@@ -18,10 +18,10 @@ export default function NotFound(): ReactNode {
         This page doesn&rsquo;t exist, or it moved somewhere else.
       </p>
       <div className="mt-8 flex flex-wrap justify-center gap-3">
-        <FillButton href="/" tone="forest">
+        <FillButton href="/" tone="ink">
           Back home
         </FillButton>
-        <FillButton href="/projects" tone="amber">
+        <FillButton href="/projects" tone="accent">
           See projects
         </FillButton>
       </div>

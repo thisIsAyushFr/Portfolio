@@ -5,14 +5,23 @@ import Lenis from "lenis";
 import { features } from "@/lib/config";
 
 const LENIS_OPTIONS = {
-  duration: 1.6,
-  easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  // lerp gives a continuous, weighty glide; a fixed duration feels steppy
+  // when the wheel is flicked repeatedly.
+  lerp: 0.09,
   orientation: "vertical" as const,
   gestureOrientation: "vertical" as const,
   smoothWheel: true,
+  syncTouch: false,
   wheelMultiplier: 1,
   touchMultiplier: 2,
 };
+
+let instance: Lenis | null = null;
+
+/** The live Lenis instance, or null (reduced motion, or before mount). */
+export function getLenis(): Lenis | null {
+  return instance;
+}
 
 export function SmoothScroll({
   children,
@@ -29,13 +38,14 @@ export function SmoothScroll({
     if (prefersReducedMotion) return;
 
     const lenis = new Lenis(LENIS_OPTIONS);
+    instance = lenis;
 
+    let rafId = 0;
     function raf(time: number): void {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
-
-    const rafId = requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
     function handleAnchorClick(e: MouseEvent): void {
       const target = e.target as HTMLElement;
@@ -58,6 +68,7 @@ export function SmoothScroll({
       document.removeEventListener("click", handleAnchorClick);
       cancelAnimationFrame(rafId);
       lenis.destroy();
+      instance = null;
     };
   }, []);
 

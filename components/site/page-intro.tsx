@@ -4,8 +4,8 @@ import { motion } from "motion/react";
 import type { ReactNode } from "react";
 
 import { Label } from "@/components/ui/primitives";
+import { EASE, introDelay } from "@/lib/motion";
 
-const EASE = [0.22, 1, 0.36, 1] as const;
 
 /** Centered label / giant title / copy block that opens the inner pages. */
 export function PageIntro({
@@ -19,14 +19,17 @@ export function PageIntro({
   copy: string;
   children?: ReactNode;
 }): ReactNode {
+  // Hold the entrance until the intro loader lifts (zero on later visits).
+  const wait = introDelay();
+
   return (
-    <section className="relative overflow-hidden bg-linear-to-b from-cream-light to-cream px-[var(--margin)] pt-36 pb-20 text-center text-forest md:pt-48 md:pb-28">
+    <section className="relative overflow-hidden bg-linear-to-b from-cream-light to-cream px-[var(--margin)] pt-36 pb-20 text-center text-ink md:pt-48 md:pb-28">
       {children}
 
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
+        transition={{ duration: 0.8, delay: wait + 0.1, ease: EASE }}
       >
         <Label>{label}</Label>
       </motion.div>
@@ -39,7 +42,7 @@ export function PageIntro({
               animate={{ y: "0%" }}
               transition={{
                 duration: 1,
-                delay: 0.2 + index * 0.12,
+                delay: wait + 0.2 + index * 0.12,
                 ease: EASE,
               }}
               className="block"
@@ -53,7 +56,7 @@ export function PageIntro({
       <motion.p
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.55, ease: EASE }}
+        transition={{ duration: 0.8, delay: wait + 0.55, ease: EASE }}
         className="t-body mx-auto mt-7 max-w-[40ch] sm:mt-9"
       >
         {copy}

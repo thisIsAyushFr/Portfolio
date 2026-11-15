@@ -11,17 +11,11 @@ import Link from "next/link";
 import { useRef, type ComponentType, type ReactNode } from "react";
 
 import { Label } from "@/components/ui/primitives";
-import { ProjectShot } from "@/components/ui/project-shot";
-import { PROJECTS, type Project } from "@/lib/data";
+import { HeroStack } from "./hero-stack";
+import { EASE, introDelay } from "@/lib/motion";
 
-const EASE = [0.22, 1, 0.36, 1] as const;
 
 const clamp01 = (value: number): number => Math.min(1, Math.max(0, value));
-
-// Featured in the hero stack: one in front, two fanned out behind it.
-const CENTER = PROJECTS[0] as Project;
-const SIDE_LEFT = PROJECTS[2] as Project;
-const SIDE_RIGHT = PROJECTS[3] as Project;
 
 export function Hero(): ReactNode {
   const ref = useRef<HTMLElement | null>(null);
@@ -36,11 +30,6 @@ export function Hero(): ReactNode {
   const contentScale = useTransform(scrollYProgress, [0, 0.8], [1, 0.86]);
   const stackY = useTransform(scrollYProgress, [0, 0.8], ["62%", "-6%"]);
   const stackScale = useTransform(scrollYProgress, [0, 0.8], [0.84, 1]);
-  // The side cards start tucked behind the front one and fan out.
-  const leftX = useTransform(scrollYProgress, [0, 0.8], ["30%", "0%"]);
-  const rightX = useTransform(scrollYProgress, [0, 0.8], ["-30%", "0%"]);
-  const leftRotate = useTransform(scrollYProgress, [0, 0.8], [0, -7]);
-  const rightRotate = useTransform(scrollYProgress, [0, 0.8], [0, 7]);
   const glowScale = useTransform(scrollYProgress, [0, 1], [0.7, 1.5]);
   // Function-form transforms on purpose: range-mapped opacity gets handed to a
   // native scroll timeline that tracks the whole page, not this section.
@@ -51,45 +40,48 @@ export function Hero(): ReactNode {
     () => 1 - clamp01(scrollYProgress.get() / 0.12)
   );
 
+  // Hold the entrance until the intro loader lifts (zero on later visits).
+  const wait = introDelay();
+
   return (
     <section ref={ref} className="relative h-[210vh] bg-cream">
       <div className="sticky top-0 h-screen overflow-hidden">
         {/* Sky */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-linear-to-b from-cream-light via-cream to-[#e9bd8f]"
+          className="absolute inset-0 bg-linear-to-b from-cream-light via-cream to-[#dcd5b8]"
         />
         <motion.div
           aria-hidden="true"
           style={{ scale: glowScale }}
-          className="absolute bottom-[-30vh] left-1/2 h-[90vh] w-[90vh] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(165,87,4,0.34)_0%,rgba(165,87,4,0.14)_38%,transparent_68%)]"
+          className="absolute bottom-[-30vh] left-1/2 h-[90vh] w-[90vh] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(109,8,8,0.30)_0%,rgba(109,8,8,0.12)_38%,transparent_68%)]"
         />
 
         {/* Copy */}
         <motion.div
           style={{ y: contentY, scale: contentScale }}
-          className="relative flex origin-top flex-col items-center px-[var(--margin)] pt-[max(7rem,15vh)] text-center text-forest [--hero-shift:-4vh] md:[--hero-shift:-19vh]"
+          className="relative flex origin-top flex-col items-center px-[var(--margin)] pt-[max(7rem,15vh)] text-center text-ink [--hero-shift:-4vh] md:[--hero-shift:-19vh]"
         >
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
+            transition={{ duration: 0.8, delay: wait + 0.1, ease: EASE }}
           >
             <Label>Hey, I&rsquo;m Ayush</Label>
           </motion.div>
 
           <h1 className="t-xl mt-7 sm:mt-9">
-            <HeroLine delay={0.2}>
+            <HeroLine delay={wait + 0.2}>
               Computer <br className="sm:hidden" />
               Science &amp;
             </HeroLine>
-            <HeroLine delay={0.32}>AI/ML Engineer</HeroLine>
+            <HeroLine delay={wait + 0.32}>AI/ML Engineer</HeroLine>
           </h1>
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.55, ease: EASE }}
+            transition={{ duration: 0.8, delay: wait + 0.55, ease: EASE }}
             className="t-body mt-7 max-w-[36ch] sm:mt-9"
           >
             Computer Science student building software, AI systems, and
@@ -97,34 +89,13 @@ export function Hero(): ReactNode {
           </motion.p>
         </motion.div>
 
-        {/* Rising stack of real work */}
+        {/* Rising stack of real work: see hero-stack.tsx */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center">
           <motion.div
             style={{ y: stackY, scale: stackScale }}
             className="pointer-events-auto relative aspect-[5/2] w-[min(92vw,60rem)] origin-bottom will-change-transform"
           >
-            <motion.div
-              initial={{ opacity: 0, y: 120 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.4, delay: 0.5, ease: EASE }}
-              className="absolute inset-0"
-            >
-              <motion.div
-                style={{ x: leftX, rotate: leftRotate }}
-                className="absolute top-[16%] left-0 w-[44%]"
-              >
-                <ProjectShot project={SIDE_LEFT} eager />
-              </motion.div>
-              <motion.div
-                style={{ x: rightX, rotate: rightRotate }}
-                className="absolute top-[16%] right-0 w-[44%]"
-              >
-                <ProjectShot project={SIDE_RIGHT} eager />
-              </motion.div>
-              <div className="absolute top-0 left-[22%] w-[56%]">
-                <ProjectShot project={CENTER} eager />
-              </div>
-            </motion.div>
+            <HeroStack progress={scrollYProgress} wait={wait} />
 
             <motion.div style={{ opacity: hotspotOpacity }}>
               <Hotspot
@@ -148,9 +119,9 @@ export function Hero(): ReactNode {
         <motion.div
           aria-hidden="true"
           style={{ opacity: hintOpacity }}
-          className="t-label absolute bottom-6 left-[var(--margin)] hidden items-center gap-3 text-forest sm:flex"
+          className="t-label absolute bottom-6 left-[var(--margin)] hidden items-center gap-3 text-ink sm:flex"
         >
-          <span className="inline-block h-8 w-px bg-forest" />
+          <span className="inline-block h-8 w-px bg-ink" />
           Scroll
         </motion.div>
       </div>
@@ -205,12 +176,12 @@ function Hotspot({
       data-open="true"
       className={`hotspot focus-ring group absolute z-10 block -translate-x-1/2 -translate-y-1/2 rounded-full ${className}`}
     >
-      <span className="relative flex h-12 w-12 items-center justify-center rounded-full bg-forest text-cream-light transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110">
+      <span className="relative flex h-12 w-12 items-center justify-center rounded-full bg-ink text-cream-light transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110">
         <Icon className="h-4.5 w-4.5" strokeWidth={2.25} />
         <svg
           aria-hidden="true"
           viewBox="0 0 60 60"
-          className="hotspot-ring absolute -inset-1.5 h-[calc(100%+0.75rem)] w-[calc(100%+0.75rem)] text-forest"
+          className="hotspot-ring absolute -inset-1.5 h-[calc(100%+0.75rem)] w-[calc(100%+0.75rem)] text-ink"
         >
           <circle
             cx="30"
@@ -252,7 +223,7 @@ function Flag({
       } ${className}`}
     >
       <span
-        className={`t-h8 block bg-forest py-4 whitespace-nowrap text-cream-light ${
+        className={`t-h8 block bg-ink py-4 whitespace-nowrap text-cream-light ${
           leftward ? "pr-7 pl-4" : "pr-4 pl-7"
         }`}
         style={{

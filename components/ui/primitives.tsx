@@ -1,4 +1,7 @@
 import Link from "next/link";
+
+import { Magnetic } from "@/components/motion/magnetic";
+import { RollText } from "@/components/motion/roll-text";
 import type { CSSProperties, ReactNode } from "react";
 
 /** Small boxed uppercase eyebrow. Inherits the current text colour. */
@@ -18,22 +21,22 @@ export function Label({
   );
 }
 
-type Tone = "cream" | "forest" | "amber";
+type Tone = "cream" | "ink" | "accent";
 
 /**
  * `tone` names the colour of the button itself (border, text, hover fill),
  * so pick the one that contrasts with the section behind it.
  */
 const TONES: Record<Tone, { className: string; ink: string }> = {
-  cream: { className: "text-cream", ink: "var(--forest)" },
-  forest: { className: "text-forest", ink: "var(--cream-light)" },
-  amber: { className: "text-amber", ink: "var(--cream-light)" },
+  cream: { className: "text-cream", ink: "var(--ink)" },
+  ink: { className: "text-ink", ink: "var(--cream-light)" },
+  accent: { className: "text-accent", ink: "var(--cream-light)" },
 };
 
 export function FillButton({
   href,
   children,
-  tone = "forest",
+  tone = "ink",
   size = "md",
   className = "",
 }: {
@@ -53,20 +56,28 @@ export function FillButton({
   if (external) {
     const newTab = href.startsWith("http");
     return (
-      <a
-        href={href}
-        className={classes}
-        style={style}
-        {...(newTab ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      >
-        <span>{children}</span>
-      </a>
+      <Magnetic>
+        <a
+          href={href}
+          className={classes}
+          style={style}
+          {...(newTab ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        >
+          <span>
+            <RollText>{children}</RollText>
+          </span>
+        </a>
+      </Magnetic>
     );
   }
 
   return (
-    <Link href={href} className={classes} style={style}>
-      <span>{children}</span>
-    </Link>
+    <Magnetic>
+      <Link href={href} className={classes} style={style}>
+        <span>
+          <RollText>{children}</RollText>
+        </span>
+      </Link>
+    </Magnetic>
   );
 }

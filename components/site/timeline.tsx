@@ -17,7 +17,7 @@ export function Timeline({
         {entries.map((entry) => (
           <li
             key={`${entry.place}-${entry.period}`}
-            className="group flex items-center gap-4 border-b border-current/30 py-5 transition-[padding,background-color,color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-amber hover:px-4 hover:text-cream-light sm:gap-6 sm:py-6"
+            className="group flex items-center gap-4 border-b border-current/30 py-5 transition-[padding,background-color,color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-accent hover:px-4 hover:text-cream-light sm:gap-6 sm:py-6"
           >
             <span
               aria-hidden="true"

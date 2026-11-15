@@ -1,5 +1,6 @@
 import { PolaroidStrip } from "@/components/about/polaroid-strip";
 import { Stack } from "@/components/about/stack";
+import { SplitReveal } from "@/components/motion/split-reveal";
 import { Marquee } from "@/components/site/marquee";
 import { PageIntro } from "@/components/site/page-intro";
 import { Timeline } from "@/components/site/timeline";
@@ -29,7 +30,7 @@ export default function AboutPage(): ReactNode {
         </div>
       </PageIntro>
 
-      <section className="grid-w gap-y-10 bg-pine py-28 text-cream md:py-44">
+      <section className="grid-w gap-y-10 bg-deep py-28 text-cream md:py-44">
         <Reveal className="col-span-full md:col-span-4">
           <Label>The story</Label>
           <p className="t-h2 mt-8 max-w-[12ch]">
@@ -74,16 +75,14 @@ export default function AboutPage(): ReactNode {
         </Reveal>
       </section>
 
-      <Marquee items={SKILLS} className="bg-forest text-cream" />
+      <Marquee items={SKILLS} className="bg-sage text-ink" />
 
-      <section className="grid-w gap-y-14 bg-cream py-28 text-forest md:py-44">
+      <section className="grid-w gap-y-14 bg-cream py-28 text-ink md:py-44">
         <Reveal className="col-span-full lg:col-span-4">
           <div className="lg:sticky lg:top-28">
             <Label>Background</Label>
             <h2 className="t-h1 mt-8">
-              Where
-              <br />
-              I&rsquo;ve been
+              <SplitReveal lines={["Where", "I\u2019ve been"]} />
             </h2>
           </div>
         </Reveal>
@@ -101,7 +100,7 @@ export default function AboutPage(): ReactNode {
               {SKILLS.map((skill) => (
                 <li
                   key={skill}
-                  className="t-h8 border border-forest px-4 py-3 transition-colors duration-300 hover:bg-forest hover:text-cream"
+                  className="t-h8 border border-ink px-4 py-3 transition-colors duration-300 hover:bg-ink hover:text-cream"
                 >
                   {skill}
                 </li>

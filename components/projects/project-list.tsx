@@ -8,8 +8,8 @@ import { PROJECTS, type Project } from "@/lib/data";
 /** Full project index: large alternating rows separated by rules. */
 export function ProjectList(): ReactNode {
   return (
-    <section className="bg-cream pb-28 text-forest md:pb-44">
-      <ol className="border-t border-forest/30">
+    <section className="bg-cream pb-28 text-ink md:pb-44">
+      <ol className="border-t border-ink/30">
         {PROJECTS.map((project, index) => (
           <ProjectRow key={project.id} project={project} index={index} />
         ))}
@@ -30,7 +30,7 @@ function ProjectRow({
   return (
     <li
       id={project.id}
-      className="scroll-mt-24 border-b border-forest/30 py-10 md:py-16"
+      className="scroll-mt-24 border-b border-ink/30 py-10 md:py-16"
     >
       <Reveal className="grid-w items-center gap-y-8">
         <div
@@ -49,7 +49,7 @@ function ProjectRow({
           }`}
         >
           <p className="t-label">
-            <span className="mr-3 bg-amber px-2 py-1 text-cream-light">
+            <span className="mr-3 bg-accent px-2 py-1 text-cream-light">
               {String(index + 1).padStart(2, "0")}
             </span>
             <span className="opacity-70">{project.meta}</span>
@@ -60,12 +60,12 @@ function ProjectRow({
           <p className="t-body mt-5">{project.description}</p>
           <div className="mt-7 flex flex-wrap gap-3">
             {project.live && (
-              <FillButton href={project.live} tone="amber" size="sm">
+              <FillButton href={project.live} tone="accent" size="sm">
                 Live demo
               </FillButton>
             )}
             {project.github && (
-              <FillButton href={project.github} tone="forest" size="sm">
+              <FillButton href={project.github} tone="ink" size="sm">
                 GitHub
               </FillButton>
             )}

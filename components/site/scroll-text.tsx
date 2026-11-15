@@ -29,7 +29,7 @@ export function ScrollText({
   const words = text.split(" ");
 
   return (
-    <section ref={ref} className="relative h-[190vh] bg-pine text-cream">
+    <section ref={ref} className="relative h-[190vh] bg-deep text-cream">
       <div className="grid-w sticky top-0 min-h-screen content-center py-28">
         <div className="col-span-full flex flex-col items-center md:col-start-2 md:col-end-12 xl:col-start-3 xl:col-end-11">
           <Label>{label}</Label>
@@ -74,7 +74,7 @@ function Word({
   progress: MotionValue<number>;
   range: [number, number];
 }): ReactNode {
-  const color = useTransform(progress, range, ["#09251c", "#f3d2af"]);
+  const color = useTransform(progress, range, ["#2d0000", "#eeead7"]);
   return (
     <>
       <motion.span style={{ color }}>{children}</motion.span>{" "}

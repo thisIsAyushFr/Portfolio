@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 
+import { SplitReveal } from "@/components/motion/split-reveal";
 import { FillButton, Label } from "@/components/ui/primitives";
 import { Reveal } from "@/components/ui/reveal";
 import { SOCIALS } from "@/lib/data";
@@ -8,7 +9,7 @@ export function ContactPromo(): ReactNode {
   return (
     <section
       id="contact"
-      className="grid-w relative overflow-hidden bg-amber py-28 text-cream-light md:py-44"
+      className="grid-w relative overflow-hidden bg-accent py-28 text-cream-light md:py-44"
     >
       <div
         aria-hidden="true"
@@ -17,9 +18,7 @@ export function ContactPromo(): ReactNode {
       <Reveal className="col-span-full flex flex-col items-center text-center">
         <Label>Let&rsquo;s connect</Label>
         <h2 className="t-l mt-8 md:mt-10">
-          Got an idea?
-          <br />
-          Let&rsquo;s talk
+          <SplitReveal lines={["Got an idea?", "Let\u2019s talk"]} />
         </h2>
         <p className="t-body mt-8 max-w-[42ch] md:mt-10">
           I&rsquo;m always open to discussing new projects, creative ideas, or

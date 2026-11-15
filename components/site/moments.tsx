@@ -8,6 +8,7 @@ import {
 } from "motion/react";
 import { useRef, type ReactNode } from "react";
 
+import { SplitReveal } from "@/components/motion/split-reveal";
 import { Label } from "@/components/ui/primitives";
 import { PROJECTS } from "@/lib/data";
 
@@ -37,7 +38,7 @@ const MOMENTS: Moment[] = [
   {
     figure: "01",
     title: "Paper under review",
-    note: "GPU-accelerated optimization: predicting CPU vs GPU workloads.",
+    note: "Robust ML-based CPU–GPU device selection under hardware and load shift.",
   },
   {
     figure: "2026",
@@ -78,7 +79,7 @@ export function Moments(): ReactNode {
     <section
       ref={ref}
       aria-label="Signature moments"
-      className="relative bg-forest text-cream"
+      className="relative bg-ink text-cream"
       style={{ height: `${MOMENTS.length * 55 + 100}vh` }}
     >
       <div className="sticky top-0 flex h-screen flex-col overflow-hidden">
@@ -93,13 +94,8 @@ export function Moments(): ReactNode {
         >
           <li className="flex w-[86vw] shrink-0 flex-col justify-center px-[var(--margin)] md:w-[46vw]">
             <h2 className="t-l">
-              The story
-              <br />
-              in numbers
+              <SplitReveal lines={["The story", "in numbers"]} />
             </h2>
-            <p className="t-body mt-6 max-w-[34ch] opacity-80">
-              Keep scrolling &mdash; this one moves sideways.
-            </p>
           </li>
 
           {MOMENTS.map((moment, index) => (
@@ -116,7 +112,7 @@ export function Moments(): ReactNode {
                 {String(MOMENTS.length).padStart(2, "0")}
               </span>
               <p
-                className={`t-l mt-4 ${index % 2 === 0 ? "text-amber" : "text-cream"}`}
+                className={`t-l mt-4 ${index % 2 === 0 ? "text-sage" : "text-cream"}`}
               >
                 {moment.figure}
               </p>
@@ -141,7 +137,7 @@ export function Moments(): ReactNode {
           <div className="mt-2 h-0.5 w-full bg-cream/20">
             <motion.div
               style={{ scaleX: barScale }}
-              className="h-full origin-left bg-amber"
+              className="h-full origin-left bg-sage"
             />
           </div>
         </div>

@@ -11,6 +11,8 @@ export type Project = {
   focus?: string;
   /** Extra zoom, for screenshots with dead space or stray browser chrome. */
   zoom?: { scale: number; origin: string };
+  /** Show the whole image on white instead of cropping to fill (for charts). */
+  contain?: boolean;
   github?: string;
   live?: string;
 };
@@ -29,15 +31,15 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "gpu-optimization",
-    title: "GPU-Accelerated Optimization",
-    tagline: "CPU or GPU? Let the model decide",
+    title: "CPU–GPU Device Selection",
+    tagline: "Robust ML scheduling under hardware and load shift",
     description:
-      "Predicting whether workloads belong on the CPU or GPU using workload characteristics, machine learning models, and benchmarked workloads.",
-    meta: "ML Research · Paper Under Review · Private Repo",
+      "Research paper on choosing the CPU or GPU for each task. A LightGBM model trained on 7,000 timing measurements across seven workloads and two GPUs cuts time lost against a perfect choice from 3.8% to 1.6% versus a tuned threshold rule, with uncertainty checks and online learning to adapt when hardware or load changes.",
+    meta: "ML Research · LightGBM · Paper Under Review · Private Repo",
     image: "/projects/gpu-optimization.png",
-    focus: "50% 40%",
-    zoom: { scale: 1.07, origin: "50% 45%" },
-    imageAlt: "GPU optimization research benchmark results",
+    contain: true,
+    imageAlt:
+      "Rolling slowdown versus oracle for four scheduling methods before and after a load change and a hardware change",
     github: "https://github.com/thisIsAyushFr/GPU-accelerated-optimization",
   },
   {
@@ -63,6 +65,16 @@ export const PROJECTS: Project[] = [
     focus: "50% 50%",
     imageAlt: "PromptForge AI prompt optimization interface",
     github: "https://github.com/thisIsAyushFr/PromptForge",
+  },
+  {
+    id: "ecosort",
+    title: "EcoSort",
+    tagline: "Recyclable or not, decided on camera",
+    description:
+      "A smart waste-sorting prototype: an OV7675 camera on an Arduino Nano ESP32 streams frames to a small CNN, trained from scratch in PyTorch, that classifies each item as recyclable or non-recyclable in real time.",
+    meta: "PyTorch · Computer Vision · ESP32 · OpenCV",
+    image: "/projects/ecosort.png",
+    imageAlt: "EcoSort illustration: a camera frame of a can passing through a CNN to a recyclable verdict",
   },
   {
     id: "nexus",
@@ -115,8 +127,8 @@ export const PROJECTS: Project[] = [
   },
 ];
 
-/** The first three projects get the full-screen treatment on the home page. */
-export const FEATURED_COUNT = 3;
+/** The first five projects are the stacking cards on the home page. */
+export const FEATURED_COUNT = 5;
 
 export type TimelineEntry = {
   kind: "Experience" | "Education";

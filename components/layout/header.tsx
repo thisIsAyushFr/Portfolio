@@ -1,13 +1,19 @@
 "use client";
 
-import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+} from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, type ReactNode } from "react";
 
+import { Magnetic } from "@/components/motion/magnetic";
+import { RollText } from "@/components/motion/roll-text";
 import { NAV_ITEMS, SOCIALS } from "@/lib/data";
-
-const EASE = [0.22, 1, 0.36, 1] as const;
+import { EASE } from "@/lib/motion";
 
 function isActive(pathname: string, href: string): boolean {
   return href === "/"
@@ -34,7 +40,7 @@ export function Header(): ReactNode {
       <motion.div
         aria-hidden="true"
         style={{ scaleX: scrollYProgress }}
-        className="fixed inset-x-0 top-0 z-[60] h-1 origin-left bg-amber"
+        className="bg-sage fixed inset-x-0 top-0 z-[60] h-1 origin-left"
       />
 
       <motion.header
@@ -44,7 +50,7 @@ export function Header(): ReactNode {
         className="fixed inset-x-0 top-0 z-50 p-3 sm:p-4"
       >
         <div
-          className={`flex h-14 items-center justify-between px-4 text-forest transition-colors duration-500 sm:px-5 ${
+          className={`text-ink flex h-14 items-center justify-between px-4 transition-colors duration-500 sm:px-5 ${
             solid || open ? "bg-cream-light" : "bg-transparent"
           }`}
         >
@@ -68,10 +74,10 @@ export function Header(): ReactNode {
                       aria-current={active ? "page" : undefined}
                       className="focus-ring t-h8 group relative inline-block py-2"
                     >
-                      {item.label}
+                      <RollText>{item.label}</RollText>
                       <span
                         aria-hidden="true"
-                        className={`absolute inset-x-0 bottom-0 h-px origin-left bg-amber transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 ${
+                        className={`bg-accent absolute inset-x-0 bottom-0 h-px origin-left transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 ${
                           active ? "scale-x-100" : "scale-x-0"
                         }`}
                       />
@@ -83,18 +89,20 @@ export function Header(): ReactNode {
           </nav>
 
           <div className="flex items-center gap-2">
-            <a
-              href={`mailto:${SOCIALS.email}`}
-              className="focus-ring t-h8 hidden bg-amber px-4 py-3 text-cream-light transition-colors duration-300 hover:bg-forest md:inline-block"
-            >
-              Let&rsquo;s talk
-            </a>
+            <Magnetic className="hidden md:inline-block">
+              <a
+                href={`mailto:${SOCIALS.email}`}
+                className="focus-ring t-h8 bg-accent text-cream-light hover:bg-ink inline-block px-4 py-3 transition-colors duration-300"
+              >
+                <RollText>Let&rsquo;s talk</RollText>
+              </a>
+            </Magnetic>
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
               aria-expanded={open}
               aria-controls="mobile-menu"
-              className="focus-ring t-h8 cursor-pointer border border-forest px-4 py-3 md:hidden"
+              className="focus-ring t-h8 border-ink cursor-pointer border px-4 py-3 md:hidden"
             >
               {open ? "Close" : "Menu"}
             </button>
@@ -110,7 +118,7 @@ export function Header(): ReactNode {
             animate={{ clipPath: "inset(0 0 0% 0)" }}
             exit={{ clipPath: "inset(0 0 100% 0)" }}
             transition={{ duration: 0.7, ease: EASE }}
-            className="fixed inset-0 z-40 flex flex-col justify-between bg-pine px-5 pt-28 pb-8 text-cream md:hidden"
+            className="bg-deep text-cream fixed inset-0 z-40 flex flex-col justify-between px-5 pt-28 pb-8 md:hidden"
           >
             <nav aria-label="Mobile">
               <ul className="flex flex-col gap-2">
@@ -131,7 +139,7 @@ export function Header(): ReactNode {
                       aria-current={
                         isActive(pathname, item.href) ? "page" : undefined
                       }
-                      className="focus-ring t-l block aria-[current=page]:text-amber"
+                      className="focus-ring t-l aria-[current=page]:text-sage block"
                     >
                       {item.label}
                     </Link>

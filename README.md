@@ -7,7 +7,7 @@ Personal portfolio of Ayush, a Computer Science & Engineering student specializi
 ## What's inside
 
 - **Home** — a scroll-driven story: a pinned hero with a fanned stack of project windows, a statement that lights up word by word, a sideways "Signature moments" timeline, three full-screen featured projects, and a grid of the rest.
-- **Projects** — all eight projects with screenshots, descriptions, and GitHub / live demo links.
+- **Projects** — all nine projects with screenshots, descriptions, and GitHub / live demo links.
 - **About** — bio, experience, education, skills, photos, and a draggable tech-stack playground.
 
 ## Featured projects
@@ -15,7 +15,7 @@ Personal portfolio of Ayush, a Computer Science & Engineering student specializi
 | Project | What it is | Stack |
 | --- | --- | --- |
 | [StudyLens](https://github.com/thisIsAyushFr/StudyLens) | AI study assistant built around RAG: ask questions from your notes, trace answers to source pages, generate quizzes | Python, ChromaDB |
-| [GPU-Accelerated Optimization](https://github.com/thisIsAyushFr/GPU-accelerated-optimization) | Research on predicting whether a workload belongs on the CPU or GPU (paper under review) | ML research |
+| [CPU–GPU Device Selection](https://github.com/thisIsAyushFr/GPU-accelerated-optimization) | Research paper on ML-based CPU vs GPU scheduling that stays robust under hardware and load shift (paper under review) | ML research |
 | [CareSync](https://github.com/thisIsAyushFr/CareSync) | Hospital management platform; finalist at Vibe to Viable among 100+ teams | [Live demo](https://caresync-vtv.vercel.app/) |
 | [PromptForge](https://github.com/thisIsAyushFr/PromptForge) | Browser extension that improves prompts for Claude | React, Vite |
 | [NEXUS](https://github.com/thisIsAyushFr/Nexus-Emotion-Detection) | Asteroid survival game that adapts to the player's expression and voice | JavaScript, computer vision |

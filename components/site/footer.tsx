@@ -1,4 +1,6 @@
 import Link from "next/link";
+
+import { RollText } from "@/components/motion/roll-text";
 import type { ReactNode } from "react";
 
 import { NAV_ITEMS, PROJECTS, SOCIALS } from "@/lib/data";
@@ -11,7 +13,7 @@ const SOCIAL_LINKS = [
 
 export function Footer(): ReactNode {
   return (
-    <footer className="overflow-hidden bg-forest text-cream">
+    <footer className="overflow-hidden bg-ink text-cream">
       <div className="grid-w gap-y-12 pt-20 md:pt-28">
         <p className="t-h2 col-span-full max-w-[18ch] md:col-span-6">
           Computer Science &amp; AI/ML engineer, building things that matter.
@@ -20,8 +22,8 @@ export function Footer(): ReactNode {
         <FooterColumn title="Pages" className="col-span-6 md:col-span-2">
           {NAV_ITEMS.map((item) => (
             <li key={item.href}>
-              <Link href={item.href} className="focus-ring hover:text-amber">
-                {item.label}
+              <Link href={item.href} className="focus-ring hover:text-sage">
+                <RollText>{item.label}</RollText>
               </Link>
             </li>
           ))}
@@ -32,9 +34,9 @@ export function Footer(): ReactNode {
             <li key={project.id}>
               <Link
                 href={`/projects#${project.id}`}
-                className="focus-ring hover:text-amber"
+                className="focus-ring hover:text-sage"
               >
-                {project.title}
+                <RollText>{project.title}</RollText>
               </Link>
             </li>
           ))}
@@ -45,12 +47,12 @@ export function Footer(): ReactNode {
             <li key={link.label}>
               <a
                 href={link.href}
-                className="focus-ring hover:text-amber"
+                className="focus-ring hover:text-sage"
                 {...(link.href.startsWith("http")
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}
               >
-                {link.label}
+                <RollText>{link.label}</RollText>
               </a>
             </li>
           ))}
@@ -59,7 +61,7 @@ export function Footer(): ReactNode {
 
       <p
         aria-hidden="true"
-        className="mt-16 text-center font-display text-[31vw] leading-[1.02] text-transparent transition-colors duration-700 [-webkit-text-stroke:2px_var(--amber)] hover:text-amber uppercase select-none md:mt-20"
+        className="mt-16 text-center font-display text-[31vw] leading-[1.02] text-transparent transition-colors duration-700 [-webkit-text-stroke:2px_var(--sage)] hover:text-sage uppercase select-none md:mt-20"
       >
         Ayush
       </p>

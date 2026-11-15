@@ -105,7 +105,7 @@ function PolaroidCard({
         y: ty,
         rotate: photo.rotate,
       }}
-      className="relative aspect-[3/4] w-[clamp(5.5rem,10vw,8.5rem)] shrink-0 bg-cream-light p-1.5 pb-5 shadow-[0_16px_30px_-16px_rgba(9,37,28,0.6)] ring-1 ring-forest/15"
+      className="relative aspect-[3/4] w-[clamp(5.5rem,10vw,8.5rem)] shrink-0 bg-cream-light p-1.5 pb-5 shadow-[0_16px_30px_-16px_rgba(45,0,0,0.6)] ring-1 ring-ink/15"
     >
       <img
         src={photo.src}
@@ -173,7 +173,7 @@ export function PolaroidStrip(): ReactNode {
             }}
             className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center p-6"
           >
-            <div className="relative max-h-[82vh] max-w-[78vw] bg-cream-light p-2 pb-8 shadow-2xl ring-1 ring-forest/15">
+            <div className="relative max-h-[82vh] max-w-[78vw] bg-cream-light p-2 pb-8 shadow-2xl ring-1 ring-ink/15">
               <img
                 src={hoveredPhoto.src}
                 alt=""

@@ -28,7 +28,7 @@ export default function HomePage(): ReactNode {
       />
       <Moments />
       <Trail />
-      <Marquee items={SKILLS} className="bg-forest text-cream" />
+      <Marquee items={SKILLS} className="bg-sage text-ink" />
       <Journey />
       <MoreWork />
     </main>

@@ -18,15 +18,15 @@ export default function OpenGraphImage(): ImageResponse {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: 72,
-          background: "#09251c",
-          color: "#f3d2af",
+          background: "#2d0000",
+          color: "#eeead7",
         }}
       >
         <div
           style={{
             display: "flex",
             alignSelf: "flex-start",
-            border: "2px solid #f3d2af",
+            border: "2px solid #eeead7",
             padding: "10px 18px",
             fontSize: 24,
             letterSpacing: 3,
@@ -48,7 +48,7 @@ export default function OpenGraphImage(): ImageResponse {
           }}
         >
           <span>Computer Science</span>
-          <span style={{ color: "#f8eadc" }}>&amp; AI/ML Engineer</span>
+          <span style={{ color: "#f7f4e8" }}>&amp; AI/ML Engineer</span>
         </div>
 
         <div
@@ -63,8 +63,8 @@ export default function OpenGraphImage(): ImageResponse {
           <span
             style={{
               display: "flex",
-              background: "#a55704",
-              color: "#f8eadc",
+              background: "#6d0808",
+              color: "#f7f4e8",
               padding: "12px 22px",
             }}
           >
