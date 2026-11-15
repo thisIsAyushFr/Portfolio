@@ -4,8 +4,8 @@
   "description": "Computer Science & Engineering student specializing in AI/ML, building software, AI systems, and research-driven projects.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#eeead7",
-  "theme_color": "#eeead7",
+  "background_color": "#fefae0",
+  "theme_color": "#fefae0",
   "icons": [
     {
       "src": "/icon.svg",

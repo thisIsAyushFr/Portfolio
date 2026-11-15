@@ -105,7 +105,7 @@ function PolaroidCard({
         y: ty,
         rotate: photo.rotate,
       }}
-      className="relative aspect-[3/4] w-[clamp(5.5rem,10vw,8.5rem)] shrink-0 bg-cream-light p-1.5 pb-5 shadow-[0_16px_30px_-16px_rgba(45,0,0,0.6)] ring-1 ring-ink/15"
+      className="relative aspect-[3/4] w-[clamp(5.5rem,10vw,8.5rem)] shrink-0 bg-cream-light p-1.5 pb-5 shadow-[0_16px_30px_-16px_rgba(40,54,24,0.6)] ring-1 ring-ink/15"
     >
       <img
         src={photo.src}

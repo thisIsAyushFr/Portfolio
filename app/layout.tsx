@@ -33,7 +33,7 @@ const anton = Anton({
 export const metadata: Metadata = baseMetadata;
 
 export const viewport: Viewport = {
-  themeColor: "#eeead7",
+  themeColor: "#fefae0",
   colorScheme: "light",
   width: "device-width",
   initialScale: 1,

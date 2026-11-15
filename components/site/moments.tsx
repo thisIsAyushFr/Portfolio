@@ -2,14 +2,15 @@
 
 import {
   motion,
-  useMotionTemplate,
   useScroll,
   useTransform,
+  type MotionValue,
 } from "motion/react";
 import { useRef, type ReactNode } from "react";
 
 import { SplitReveal } from "@/components/motion/split-reveal";
 import { Label } from "@/components/ui/primitives";
+import { Reveal } from "@/components/ui/reveal";
 import { PROJECTS } from "@/lib/data";
 
 type Moment = { figure: string; title: string; note: string };
@@ -58,90 +59,105 @@ const MOMENTS: Moment[] = [
 ];
 
 /**
- * Sideways timeline: the section pins while vertical scrolling slides the
- * track horizontally. The track is translated by its own overflow
- * (100vw - 100%), so no measuring is needed.
+ * Vertical timeline: a spine runs down the section and fills in as the page
+ * scrolls. Entries alternate left and right of it on desktop, and sit to its
+ * right on phones.
  */
 export function Moments(): ReactNode {
-  const ref = useRef<HTMLElement | null>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start start", "end end"],
+    offset: ["start 0.65", "end 0.65"],
   });
-
-  const x = useMotionTemplate`calc(${scrollYProgress} * (100vw - 100%))`;
-  const percent = useTransform(
-    () => `${String(Math.round(scrollYProgress.get() * 100)).padStart(2, "0")}%`
-  );
-  const barScale = useTransform(() => scrollYProgress.get());
+  const fill = useTransform(() => scrollYProgress.get());
 
   return (
     <section
-      ref={ref}
       aria-label="Signature moments"
-      className="relative bg-ink text-cream"
-      style={{ height: `${MOMENTS.length * 55 + 100}vh` }}
+      className="bg-ink py-28 text-cream md:py-44"
     >
-      <div className="sticky top-0 flex h-screen flex-col overflow-hidden">
-        <div className="flex items-center justify-between px-[var(--margin)] pt-24 md:pt-28">
+      <div className="grid-w">
+        <Reveal className="col-span-full flex flex-col items-center text-center">
           <Label>Signature moments</Label>
-          <motion.span className="t-h7 tabular-nums">{percent}</motion.span>
-        </div>
+          <h2 className="t-l mt-8 md:mt-10">
+            <SplitReveal lines={["The story", "in numbers"]} />
+          </h2>
+        </Reveal>
+      </div>
 
-        <motion.ol
-          style={{ x }}
-          className="flex w-max flex-1 items-stretch will-change-transform"
+      <div
+        ref={ref}
+        className="relative mx-auto mt-16 max-w-[80rem] px-[var(--margin)] md:mt-24"
+      >
+        {/* Spine */}
+        <div
+          aria-hidden="true"
+          className="absolute top-0 bottom-0 left-[var(--margin)] w-px bg-cream/20 md:left-1/2"
         >
-          <li className="flex w-[86vw] shrink-0 flex-col justify-center px-[var(--margin)] md:w-[46vw]">
-            <h2 className="t-l">
-              <SplitReveal lines={["The story", "in numbers"]} />
-            </h2>
-          </li>
-
-          {MOMENTS.map((moment, index) => (
-            <li
-              key={moment.title}
-              className="relative flex w-[78vw] shrink-0 flex-col justify-center px-8 md:w-[30vw] md:px-12"
-            >
-              <span
-                aria-hidden="true"
-                className="trail-dashed absolute top-[12%] bottom-0 left-0 w-px text-cream/30"
-              />
-              <span className="t-label opacity-60">
-                {String(index + 1).padStart(2, "0")} /{" "}
-                {String(MOMENTS.length).padStart(2, "0")}
-              </span>
-              <p
-                className={`t-l mt-4 ${index % 2 === 0 ? "text-sage" : "text-cream"}`}
-              >
-                {moment.figure}
-              </p>
-              <h3 className="t-h3 mt-4">{moment.title}</h3>
-              <p className="t-body mt-3 max-w-[30ch] opacity-75">
-                {moment.note}
-              </p>
-            </li>
-          ))}
-          <li aria-hidden="true" className="w-[8vw] shrink-0" />
-        </motion.ol>
-
-        {/* Ruler */}
-        <div aria-hidden="true" className="px-[var(--margin)] pb-6 md:pb-8">
-          <div
-            className="h-3 w-full text-cream/40"
-            style={{
-              backgroundImage:
-                "repeating-linear-gradient(to right, currentColor 0 1px, transparent 1px 14px)",
-            }}
+          <motion.div
+            style={{ scaleY: fill }}
+            className="h-full w-full origin-top bg-sage"
           />
-          <div className="mt-2 h-0.5 w-full bg-cream/20">
-            <motion.div
-              style={{ scaleX: barScale }}
-              className="h-full origin-left bg-sage"
-            />
-          </div>
         </div>
+
+        <ol>
+          {MOMENTS.map((moment, index) => (
+            <MomentRow
+              key={moment.title}
+              moment={moment}
+              index={index}
+              progress={scrollYProgress}
+            />
+          ))}
+        </ol>
       </div>
     </section>
+  );
+}
+
+function MomentRow({
+  moment,
+  index,
+  progress,
+}: {
+  moment: Moment;
+  index: number;
+  progress: MotionValue<number>;
+}): ReactNode {
+  const left = index % 2 === 0;
+  // Rows are roughly equal in height, so the spine reaches this row's dot at
+  // about this fraction of the list.
+  const at = (index + 0.3) / MOMENTS.length;
+  const dot = useTransform(() =>
+    progress.get() >= at ? "var(--sage)" : "var(--ink)"
+  );
+  const dotScale = useTransform(() => (progress.get() >= at ? 1.25 : 1));
+
+  return (
+    <li className="relative grid grid-cols-1 py-8 pl-9 md:grid-cols-2 md:py-14 md:pl-0">
+      <motion.span
+        aria-hidden="true"
+        style={{ backgroundColor: dot, scale: dotScale }}
+        className="absolute top-[3.2rem] left-0 -ml-[6.5px] h-[13px] w-[13px] rounded-full border border-cream/60 transition-colors duration-500 md:top-[5.5rem] md:left-1/2"
+      />
+
+      <Reveal
+        className={`flex flex-col ${
+          left
+            ? "md:col-start-1 md:items-end md:pr-16 md:text-right"
+            : "md:col-start-2 md:pl-16"
+        }`}
+      >
+        <span className="t-label opacity-60">
+          {String(index + 1).padStart(2, "0")} /{" "}
+          {String(MOMENTS.length).padStart(2, "0")}
+        </span>
+        <p className={`t-l mt-3 ${left ? "text-sage" : "text-cream"}`}>
+          {moment.figure}
+        </p>
+        <h3 className="t-h3 mt-3">{moment.title}</h3>
+        <p className="t-body mt-3 max-w-[32ch] opacity-75">{moment.note}</p>
+      </Reveal>
+    </li>
   );
 }

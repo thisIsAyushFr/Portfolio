@@ -75,6 +75,7 @@ export const PROJECTS: Project[] = [
     meta: "PyTorch · Computer Vision · ESP32 · OpenCV",
     image: "/projects/ecosort.png",
     imageAlt: "EcoSort illustration: a camera frame of a can passing through a CNN to a recyclable verdict",
+    github: "https://github.com/thisIsAyushFr/EcoSort",
   },
   {
     id: "nexus",
@@ -127,7 +128,24 @@ export const PROJECTS: Project[] = [
   },
 ];
 
-/** The first five projects are the stacking cards on the home page. */
+/** Filter chips on the Projects page. */
+export const PROJECT_TAGS = ["AI", "Web", "Research", "Hardware"] as const;
+export type ProjectTag = (typeof PROJECT_TAGS)[number];
+
+/** Which filters each project appears under, by project id. */
+export const TAGS_BY_PROJECT: Record<string, ProjectTag[]> = {
+  studylens: ["AI"],
+  "gpu-optimization": ["Research", "AI"],
+  caresync: ["Web"],
+  promptforge: ["AI", "Web"],
+  ecosort: ["AI", "Hardware"],
+  nexus: ["AI", "Web"],
+  bookverse: ["Web"],
+  focusboard: ["Web"],
+  "scientific-calculator": ["Web"],
+};
+
+/** The first five projects are the sideways cards on the home page. */
 export const FEATURED_COUNT = 5;
 
 export type TimelineEntry = {

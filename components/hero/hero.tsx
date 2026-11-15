@@ -49,12 +49,12 @@ export function Hero(): ReactNode {
         {/* Sky */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-linear-to-b from-cream-light via-cream to-[#dcd5b8]"
+          className="absolute inset-0 bg-linear-to-b from-cream-light via-cream to-[#f0e9c4]"
         />
         <motion.div
           aria-hidden="true"
           style={{ scale: glowScale }}
-          className="absolute bottom-[-30vh] left-1/2 h-[90vh] w-[90vh] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(109,8,8,0.30)_0%,rgba(109,8,8,0.12)_38%,transparent_68%)]"
+          className="absolute bottom-[-30vh] left-1/2 h-[90vh] w-[90vh] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(188,108,37,0.30)_0%,rgba(188,108,37,0.12)_38%,transparent_68%)]"
         />
 
         {/* Copy */}

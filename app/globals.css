@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --cream: #eeead7;
-  --cream-light: #f7f4e8;
-  --deep: #4a0404;
-  --ink: #2d0000;
-  --accent: #6d0808;
-  --sage: #757d6f;
+  --cream: #fefae0;
+  --cream-light: #fffdf0;
+  --deep: #544632;
+  --ink: #283618;
+  --accent: #bc6c25;
+  --sage: #dda15e;
+  --olive: #606c38;
 
   /* Legacy aliases, still used by a few carried-over components. */
   --background: var(--cream);
@@ -24,6 +25,7 @@
   --color-ink: var(--ink);
   --color-accent: var(--accent);
   --color-sage: var(--sage);
+  --color-olive: var(--olive);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-ring: var(--ring);

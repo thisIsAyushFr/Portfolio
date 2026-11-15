@@ -3,7 +3,8 @@ import { Journey } from "@/components/site/journey";
 import { Marquee } from "@/components/site/marquee";
 import { Moments } from "@/components/site/moments";
 import { MoreWork } from "@/components/site/more-work";
-import { ScrollText } from "@/components/site/scroll-text";
+import { RoleLine } from "@/components/site/role-line";
+import { SectionRail, type RailSection } from "@/components/site/section-rail";
 import { Trail } from "@/components/site/trail";
 import { SKILLS } from "@/lib/data";
 import { createMetadata, siteConfig } from "@/lib/metadata";
@@ -17,20 +18,39 @@ export const metadata: Metadata = createMetadata({
   path: "/",
 });
 
+/** The floating section pill. Each id wraps a section below. */
+const SECTIONS: RailSection[] = [
+  { id: "top", label: "Intro" },
+  { id: "build", label: "What I build" },
+  { id: "moments", label: "Moments" },
+  { id: "work", label: "Work" },
+  { id: "journey", label: "Journey" },
+  { id: "more", label: "More" },
+];
+
 export default function HomePage(): ReactNode {
   return (
     <main id="main-content">
-      <Hero />
-      <ScrollText
-        label="Curious by default"
-        text="A Computer Science & Engineering student specializing in AI/ML, passionate about building software, exploring intelligent systems, and turning ideas into practical products."
-        cta={{ href: "/about", label: "About me" }}
-      />
-      <Moments />
-      <Trail />
+      <SectionRail sections={SECTIONS} />
+      <div id="top">
+        <Hero />
+      </div>
+      <div id="build">
+        <RoleLine />
+      </div>
+      <div id="moments">
+        <Moments />
+      </div>
+      <div id="work">
+        <Trail />
+      </div>
       <Marquee items={SKILLS} className="bg-sage text-ink" />
-      <Journey />
-      <MoreWork />
+      <div id="journey">
+        <Journey />
+      </div>
+      <div id="more">
+        <MoreWork />
+      </div>
     </main>
   );
 }

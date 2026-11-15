@@ -3,6 +3,7 @@ import Link from "next/link";
 import { RollText } from "@/components/motion/roll-text";
 import type { ReactNode } from "react";
 
+import { FooterExtras } from "@/components/site/footer-extras";
 import { NAV_ITEMS, PROJECTS, SOCIALS } from "@/lib/data";
 
 const SOCIAL_LINKS = [
@@ -59,12 +60,7 @@ export function Footer(): ReactNode {
         </FooterColumn>
       </div>
 
-      <p
-        aria-hidden="true"
-        className="mt-16 text-center font-display text-[31vw] leading-[1.02] text-transparent transition-colors duration-700 [-webkit-text-stroke:2px_var(--sage)] hover:text-sage uppercase select-none md:mt-20"
-      >
-        Ayush
-      </p>
+      <FooterExtras />
 
       <div className="t-label flex flex-wrap items-center justify-between gap-3 border-t border-cream/20 px-[var(--margin)] py-5">
         <p>&copy; 2026 Ayush. All rights reserved.</p>
