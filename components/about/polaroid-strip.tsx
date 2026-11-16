@@ -1,7 +1,24 @@
 "use client";
 
-import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from "motion/react";
-import { useRef, useState, useSyncExternalStore, type ReactNode } from "react";
+import {
+  AnimatePresence,
+  animate,
+  motion,
+  useMotionValue,
+  useScroll,
+  useSpring,
+  useTransform,
+  type MotionValue,
+} from "motion/react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  type ReactNode,
+} from "react";
+
+import { introDelay, useReducedMotion } from "@/lib/motion";
 
 type Polaroid = {
   id: string;
@@ -18,57 +35,72 @@ const PHOTOS: Polaroid[] = [
   { id: "f", src: "/about/about-6.jpg", rotate: 5 },
 ];
 
-const EASE = [0.22, 1, 0.36, 1] as const;
+
+/** Width of one polaroid, and the gap between two, as CSS. */
+const CARD_WIDTH = "clamp(5.5rem, 10vw, 8.5rem)";
+const CARD_GAP = "0.75rem";
 
 function PolaroidCard({
   photo,
   index,
+  scrollY,
   onHover,
 }: {
   photo: Polaroid;
   index: number;
+  scrollY: MotionValue<number>;
   onHover: (photo: Polaroid | null) => void;
 }): ReactNode {
   const ref = useRef<HTMLDivElement | null>(null);
+  const reducedMotion = useReducedMotion();
 
+  // 0 = every photo stacked in one pile at the centre, 1 = fanned out.
+  const spread = useMotionValue(reducedMotion ? 1 : 0);
+  useEffect(() => {
+    if (reducedMotion) return;
+    const run = animate(spread, 1, {
+      type: "spring",
+      stiffness: 90,
+      damping: 15,
+      delay: introDelay() + 0.25 + index * 0.06,
+    });
+    return () => run.stop();
+  }, [spread, index, reducedMotion]);
+
+  // How far this photo sits from the middle of the row, in photo widths.
+  const fromCentre = (PHOTOS.length - 1) / 2 - index;
+  const side = index % 2 === 0 ? 1 : -1;
+  // Function-form transforms: see the scroll-timeline note in hero.tsx.
+  const drift = (): number =>
+    reducedMotion ? 0 : Math.min(1, scrollY.get() / 600);
+  const pileX = useTransform(
+    () =>
+      `calc(${fromCentre * (1 - spread.get())} * (${CARD_WIDTH} + ${CARD_GAP}))`
+  );
+  const driftY = useTransform(() => drift() * side * -46 - drift() * 20);
+  const rotate = useTransform(
+    () =>
+      side * 3 * (1 - spread.get()) +
+      photo.rotate * spread.get() +
+      drift() * side * 7
+  );
+
+  // Magnetic pull toward the mouse.
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
-
-  const sx = useSpring(mx, {
-    stiffness: 220,
-    damping: 18,
-    mass: 0.6,
-  });
-
-  const sy = useSpring(my, {
-    stiffness: 220,
-    damping: 18,
-    mass: 0.6,
-  });
-
-  const tx = useTransform(sx, (v) => `${v}px`);
-  const ty = useTransform(sy, (v) => `${v}px`);
+  const sx = useSpring(mx, { stiffness: 220, damping: 18, mass: 0.6 });
+  const sy = useSpring(my, { stiffness: 220, damping: 18, mass: 0.6 });
 
   const handleMove = (e: React.PointerEvent<HTMLDivElement>): void => {
     const el = ref.current;
     if (!el) return;
-
     const rect = el.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-
-    const dx = e.clientX - cx;
-    const dy = e.clientY - cy;
-
+    const dx = e.clientX - (rect.left + rect.width / 2);
+    const dy = e.clientY - (rect.top + rect.height / 2);
     const max = 18;
     const k = 0.25;
-
     mx.set(Math.max(-max, Math.min(max, dx * k)));
     my.set(Math.max(-max, Math.min(max, dy * k)));
-  };
-
-  const handleEnter = (): void => {
-    onHover(photo);
   };
 
   const handleLeave = (): void => {
@@ -79,40 +111,27 @@ function PolaroidCard({
 
   return (
     <motion.div
-      ref={ref}
-      onPointerEnter={handleEnter}
-      onPointerMove={handleMove}
-      onPointerLeave={handleLeave}
-      initial={{
-        opacity: 0,
-        y: -120,
-        filter: "blur(18px)",
-        rotate: photo.rotate,
-      }}
-      animate={{
-        opacity: 1,
-        y: 0,
-        filter: "blur(0px)",
-        rotate: photo.rotate,
-      }}
-      transition={{
-        duration: 0.9,
-        delay: 0.05 + index * 0.08,
-        ease: EASE,
-      }}
-      style={{
-        x: tx,
-        y: ty,
-        rotate: photo.rotate,
-      }}
-      className="relative aspect-[3/4] w-[clamp(5.5rem,10vw,8.5rem)] shrink-0 bg-cream-light p-1.5 pb-5 shadow-[0_16px_30px_-16px_rgba(40,54,24,0.6)] ring-1 ring-ink/15"
+      initial={{ opacity: reducedMotion ? 1 : 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5, delay: introDelay() + 0.1 }}
+      style={{ x: pileX, y: driftY, rotate, zIndex: PHOTOS.length - index }}
+      className="relative shrink-0"
     >
-      <img
-        src={photo.src}
-        alt=""
-        className="h-full w-full object-cover"
-        draggable={false}
-      />
+      <motion.div
+        ref={ref}
+        onPointerEnter={() => onHover(photo)}
+        onPointerMove={handleMove}
+        onPointerLeave={handleLeave}
+        style={{ x: sx, y: sy }}
+        className="relative aspect-[3/4] w-[clamp(5.5rem,10vw,8.5rem)] bg-cream-light p-1.5 pb-5 shadow-[0_16px_30px_-16px_rgba(40,54,24,0.6)] ring-1 ring-ink/15"
+      >
+        <img
+          src={photo.src}
+          alt=""
+          className="h-full w-full object-cover"
+          draggable={false}
+        />
+      </motion.div>
     </motion.div>
   );
 }
@@ -125,6 +144,7 @@ export function PolaroidStrip(): ReactNode {
   );
 
   const [hoveredPhoto, setHoveredPhoto] = useState<Polaroid | null>(null);
+  const { scrollY } = useScroll();
 
   if (!mounted) {
     return (
@@ -137,12 +157,13 @@ export function PolaroidStrip(): ReactNode {
 
   return (
     <>
-      <div className="flex w-full flex-wrap items-start justify-center gap-2 px-4 pb-4 sm:gap-3 sm:px-8 sm:pb-6">
+      <div className="flex w-full flex-wrap items-start justify-center gap-3 px-4 pb-4 sm:gap-3 sm:px-8 sm:pb-6">
         {PHOTOS.map((photo, i) => (
           <PolaroidCard
             key={photo.id}
             photo={photo}
             index={i}
+            scrollY={scrollY}
             onHover={setHoveredPhoto}
           />
         ))}

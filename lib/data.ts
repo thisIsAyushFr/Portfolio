@@ -145,6 +145,55 @@ export const TAGS_BY_PROJECT: Record<string, ProjectTag[]> = {
   "scientific-calculator": ["Web"],
 };
 
+/** Three short points shown when a project is expanded on the Projects page. */
+export const HIGHLIGHTS_BY_PROJECT: Record<string, string[]> = {
+  studylens: [
+    "Answers questions straight from your own notes",
+    "Traces every answer back to its source page",
+    "Generates quizzes and evaluates retrieval quality",
+  ],
+  "gpu-optimization": [
+    "7,000 timing measurements across seven workloads and two GPUs",
+    "Cuts time lost against a perfect choice from 3.8% to 1.6%",
+    "Uncertainty checks and online learning adapt to hardware and load changes",
+  ],
+  caresync: [
+    "Finalist at Vibe to Viable, among 100+ teams",
+    "Appointments, beds and operational data in one place",
+    "Built for patients, doctors, nurses and administrators",
+  ],
+  promptforge: [
+    "Optimizes prompts for Claude",
+    "Works as a browser extension, without leaving the page",
+    "Built with React and Vite",
+  ],
+  ecosort: [
+    "OV7675 camera on an Arduino Nano ESP32 streams live frames",
+    "Small CNN trained from scratch in PyTorch",
+    "Sorts recyclable from non-recyclable in real time",
+  ],
+  nexus: [
+    "Asteroid survival game that adapts to the player",
+    "Optional facial-expression interaction through computer vision",
+    "Optional voice and audio interaction",
+  ],
+  bookverse: [
+    "Cataloging, members, circulation, fines and reservations",
+    "Notifications and reporting",
+    "Authentication with role-based access",
+  ],
+  focusboard: [
+    "Task and board management for focused work",
+    "Meditation for mindful breaks",
+    "Onboarding, accounts and subscriptions",
+  ],
+  "scientific-calculator": [
+    "Standard and scientific operations",
+    "Built with Python and Streamlit",
+    "Lightweight by design",
+  ],
+};
+
 /** The first five projects are the sideways cards on the home page. */
 export const FEATURED_COUNT = 5;
 

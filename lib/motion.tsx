@@ -200,7 +200,7 @@ export function StaggerItem({
 export const EASE = [0.22, 1, 0.36, 1] as const;
 
 /** Seconds the intro loader stays up before it lifts. */
-export const INTRO_SECONDS = 1.5;
+export const INTRO_SECONDS = 0.9;
 
 /**
  * Extra delay for above-the-fold entrances, so they play as the intro loader
