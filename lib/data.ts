@@ -78,6 +78,18 @@ export const PROJECTS: Project[] = [
     github: "https://github.com/thisIsAyushFr/EcoSort",
   },
   {
+    id: "breakr",
+    title: "Breakr",
+    tagline: "A security audit for AI-built apps",
+    description:
+      "A security auditor for finished or AI-generated codebases, packaged as a Claude Code skill. Ten specialised agents scan for leaked keys, missing login checks, injection and more; an AI reviewer then checks every finding against the real code and keeps only verified issues, each with a fix.",
+    meta: "Python · Security · Claude Code Skill · No Dependencies",
+    image: "/projects/breakr.png",
+    imageAlt:
+      "Breakr security audit: ten agents and a critical finding about a committed Supabase service role key",
+    github: "https://github.com/thisIsAyushFr/Skills-For-AI",
+  },
+  {
     id: "nexus",
     title: "NEXUS",
     tagline: "A game that reads the player",
@@ -135,6 +147,7 @@ export type ProjectTag = (typeof PROJECT_TAGS)[number];
 /** Which filters each project appears under, by project id. */
 export const TAGS_BY_PROJECT: Record<string, ProjectTag[]> = {
   studylens: ["AI"],
+  breakr: ["AI"],
   "gpu-optimization": ["Research", "AI"],
   caresync: ["Web"],
   promptforge: ["AI", "Web"],
@@ -156,6 +169,11 @@ export const HIGHLIGHTS_BY_PROJECT: Record<string, string[]> = {
     "7,000 timing measurements across seven workloads and two GPUs",
     "Cuts time lost against a perfect choice from 3.8% to 1.6%",
     "Uncertainty checks and online learning adapt to hardware and load changes",
+  ],
+  breakr: [
+    "Ten agents scan for leaked keys, missing login checks, injection and more",
+    "An AI reviewer checks every finding against the real code and drops false positives",
+    "Pure Python with no dependencies, packaged as a Claude Code skill",
   ],
   caresync: [
     "Finalist at Vibe to Viable, among 100+ teams",
@@ -194,8 +212,8 @@ export const HIGHLIGHTS_BY_PROJECT: Record<string, string[]> = {
   ],
 };
 
-/** The first five projects are the sideways cards on the home page. */
-export const FEATURED_COUNT = 5;
+/** The first six projects are the sideways cards on the home page. */
+export const FEATURED_COUNT = 6;
 
 export type TimelineEntry = {
   kind: "Experience" | "Education";
