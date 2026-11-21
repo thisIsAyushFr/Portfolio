@@ -16,7 +16,11 @@ import { EASE, useReducedMotion } from "@/lib/motion";
 const SENTENCES = [
   { before: "I", highlight: "build software", after: "that people actually use." },
   { before: "I", highlight: "train ML models", after: "from data to deployment." },
-  { before: "I", highlight: "research", after: "smarter CPU–GPU scheduling." },
+  {
+    before: "I",
+    highlight: "research",
+    after: "ideas in tech and AI, then test whether they hold up.",
+  },
   { before: "I", highlight: "design AI tools", after: "that make studying easier." },
   { before: "I", highlight: "wire hardware", after: "to computer vision." },
   { before: "I", highlight: "lead", after: "content at Code2Chill and represent my class." },
