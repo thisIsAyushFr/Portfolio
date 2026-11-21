@@ -300,11 +300,11 @@ function ProjectRow({
 
   const highlights = HIGHLIGHTS_BY_PROJECT[project.id] ?? [];
   const panelId = `${project.id}-details`;
-  const primary = project.live
-    ? { href: project.live, label: "Live demo" }
-    : project.github
-      ? { href: project.github, label: "GitHub" }
-      : null;
+  // Every link the project has, so the row shows GitHub even when a live demo exists.
+  const links = [
+    project.live && { href: project.live, label: "Live demo" },
+    project.github && { href: project.github, label: "GitHub" },
+  ].filter((link): link is { href: string; label: string } => Boolean(link));
 
   return (
     <div ref={ref} className="py-10 md:py-16">
@@ -376,20 +376,21 @@ function ProjectRow({
                 {open ? "Less" : "More details"}
               </button>
 
-              {primary && (
+              {links.map((link) => (
                 <a
-                  href={primary.href}
+                  key={link.label}
+                  href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="focus-ring t-h8 group inline-flex items-center gap-1.5 border-b border-current pb-1"
                 >
-                  {primary.label}
+                  {link.label}
                   <ArrowUpRight
                     aria-hidden="true"
                     className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                   />
                 </a>
-              )}
+              ))}
             </div>
           </Reveal>
         </div>
