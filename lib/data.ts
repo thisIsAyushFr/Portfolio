@@ -112,6 +112,7 @@ export const PROJECTS: Project[] = [
     imageAlt:
       "RepoMind: a repository URL goes in and a structured analysis comes out, with overview, architecture, technologies, components, entry points and data flow",
     github: "https://github.com/thisIsAyushFr/RepoMind",
+    live: "https://therepomind.vercel.app",
   },
   {
     id: "nexus",
