@@ -43,16 +43,16 @@ export const PROJECTS: Project[] = [
     github: "https://github.com/thisIsAyushFr/GPU-accelerated-optimization",
   },
   {
-    id: "caresync",
-    title: "CareSync",
-    tagline: "Hospital management in one platform",
+    id: "gesture-racing",
+    title: "Gesture Racing Game",
+    tagline: "Your hand is the steering wheel",
     description:
-      "Hospital management, organized in one platform. Centralizes appointments, beds, and operational data for patients, doctors, nurses, and administrators.",
-    meta: "Finalist, Vibe to Viable · 100+ teams",
-    image: "/projects/caresync.png",
-    imageAlt: "CareSync hospital management dashboard",
-    github: "https://github.com/thisIsAyushFr/CareSync",
-    live: "https://caresync-vtv.vercel.app/",
+      "A racing game you drive with your hand. MediaPipe tracks your hand through the webcam: an open palm accelerates, a fist brakes and tilting your hand steers, with calibration and a dead zone to keep it steady. Dodge barriers and cones on an endless road across five themes.",
+    meta: "Python · MediaPipe · Pygame · Computer Vision",
+    image: "/projects/gesture-racing.png",
+    imageAlt:
+      "Gesture Racing Game cover: a car on a neon night road, with a webcam inset tracking an open hand",
+    github: "https://github.com/thisIsAyushFr/Gesture-Racing-Game",
   },
   {
     id: "promptforge",
@@ -88,6 +88,18 @@ export const PROJECTS: Project[] = [
     imageAlt:
       "Breakr security audit: ten agents and a critical finding about a committed Supabase service role key",
     github: "https://github.com/thisIsAyushFr/Skills-For-AI",
+  },
+  {
+    id: "caresync",
+    title: "CareSync",
+    tagline: "Hospital management in one platform",
+    description:
+      "Hospital management, organized in one platform. Centralizes appointments, beds, and operational data for patients, doctors, nurses, and administrators.",
+    meta: "Finalist, Vibe to Viable · 100+ teams",
+    image: "/projects/caresync.png",
+    imageAlt: "CareSync hospital management dashboard",
+    github: "https://github.com/thisIsAyushFr/CareSync",
+    live: "https://caresync-vtv.vercel.app/",
   },
   {
     id: "nexus",
@@ -141,18 +153,25 @@ export const PROJECTS: Project[] = [
 ];
 
 /** Filter chips on the Projects page. */
-export const PROJECT_TAGS = ["AI", "Web", "Research", "Hardware"] as const;
+export const PROJECT_TAGS = [
+  "AI",
+  "Web",
+  "Research",
+  "Hardware",
+  "Computer Vision",
+] as const;
 export type ProjectTag = (typeof PROJECT_TAGS)[number];
 
 /** Which filters each project appears under, by project id. */
 export const TAGS_BY_PROJECT: Record<string, ProjectTag[]> = {
   studylens: ["AI"],
+  "gesture-racing": ["Computer Vision"],
   breakr: ["AI"],
   "gpu-optimization": ["Research", "AI"],
   caresync: ["Web"],
   promptforge: ["AI", "Web"],
-  ecosort: ["AI", "Hardware"],
-  nexus: ["AI", "Web"],
+  ecosort: ["AI", "Hardware", "Computer Vision"],
+  nexus: ["AI", "Web", "Computer Vision"],
   bookverse: ["Web"],
   focusboard: ["Web"],
   "scientific-calculator": ["Web"],
@@ -174,6 +193,11 @@ export const HIGHLIGHTS_BY_PROJECT: Record<string, string[]> = {
     "Ten agents scan for leaked keys, missing login checks, injection and more",
     "An AI reviewer checks every finding against the real code and drops false positives",
     "Pure Python with no dependencies, packaged as a Claude Code skill",
+  ],
+  "gesture-racing": [
+    "Open palm accelerates, a fist brakes, tilting your hand steers",
+    "Calibration and a dead zone keep steering steady",
+    "Five themes, a rising obstacle count and three lives",
   ],
   caresync: [
     "Finalist at Vibe to Viable, among 100+ teams",

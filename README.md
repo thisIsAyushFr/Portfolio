@@ -16,12 +16,12 @@ Personal portfolio of Ayush, a Computer Science & Engineering student specializi
 | --- | --- | --- |
 | [StudyLens](https://github.com/thisIsAyushFr/StudyLens) | AI study assistant built around RAG: ask questions from your notes, trace answers to source pages, generate quizzes | Python, ChromaDB |
 | [CPU–GPU Device Selection](https://github.com/thisIsAyushFr/GPU-accelerated-optimization) | Research paper on ML-based CPU vs GPU scheduling that stays robust under hardware and load shift (paper under review) | ML research |
-| [CareSync](https://github.com/thisIsAyushFr/CareSync) | Hospital management platform; finalist at Vibe to Viable among 100+ teams | [Live demo](https://caresync-vtv.vercel.app/) |
+| [Gesture Racing Game](https://github.com/thisIsAyushFr/Gesture-Racing-Game) | Racing game steered with your hand through the webcam: open palm accelerates, fist brakes, tilt steers | Python, MediaPipe, Pygame |
 | [PromptForge](https://github.com/thisIsAyushFr/PromptForge) | Browser extension that improves prompts for Claude | React, Vite |
 | [Breakr](https://github.com/thisIsAyushFr/Skills-For-AI) | Security auditor for AI-built apps: ten scanning agents plus an AI review that keeps only verified issues | Python, Claude Code skill |
 | [NEXUS](https://github.com/thisIsAyushFr/Nexus-Emotion-Detection) | Asteroid survival game that adapts to the player's expression and voice | JavaScript, computer vision |
 
-Also on the site: EcoSort, BookVerse, FocusBoard, and a Streamlit scientific calculator.
+Also on the site: CareSync (finalist at Vibe to Viable among 100+ teams), EcoSort, BookVerse, FocusBoard, and a Streamlit scientific calculator.
 
 ## Tech stack
 

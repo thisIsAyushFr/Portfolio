@@ -15,7 +15,7 @@ import { ProjectShot } from "@/components/ui/project-shot";
 import { PROJECTS, type Project } from "@/lib/data";
 import { EASE, useReducedMotion } from "@/lib/motion";
 
-/** The three windows shown in the hero. */
+/** The three windows shown in the hero: back-left, back-right, front. */
 const CARDS: Project[] = [
   PROJECTS[2] as Project,
   PROJECTS[3] as Project,
