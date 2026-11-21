@@ -102,6 +102,18 @@ export const PROJECTS: Project[] = [
     live: "https://caresync-vtv.vercel.app/",
   },
   {
+    id: "repomind",
+    title: "RepoMind",
+    tagline: "Understand any GitHub repo",
+    description:
+      "A developer tool that analyzes a public GitHub repository and generates a structured explanation of it: architecture, technologies, main components, entry points, relationships and data flow. Paste a repository URL, analyze it, understand it. Built with Agrim Joshi.",
+    meta: "Python · FastAPI · AI · Contributor",
+    image: "/projects/repomind.png",
+    imageAlt:
+      "RepoMind: a repository URL goes in and a structured analysis comes out, with overview, architecture, technologies, components, entry points and data flow",
+    github: "https://github.com/thisIsAyushFr/RepoMind",
+  },
+  {
     id: "nexus",
     title: "NEXUS",
     tagline: "A game that reads the player",
@@ -166,6 +178,7 @@ export type ProjectTag = (typeof PROJECT_TAGS)[number];
 export const TAGS_BY_PROJECT: Record<string, ProjectTag[]> = {
   studylens: ["AI"],
   "gesture-racing": ["Computer Vision"],
+  repomind: ["AI", "Web"],
   breakr: ["AI"],
   "gpu-optimization": ["Research", "AI"],
   caresync: ["Web"],
@@ -198,6 +211,11 @@ export const HIGHLIGHTS_BY_PROJECT: Record<string, string[]> = {
     "Open palm accelerates, a fist brakes, tilting your hand steers",
     "Calibration and a dead zone keep steering steady",
     "Five themes, a rising obstacle count and three lives",
+  ],
+  repomind: [
+    "Paste a repository URL and get a structured explanation of the codebase",
+    "Covers architecture, technologies, components, entry points and data flow",
+    "FastAPI backend with a responsive Neo-Brutalist frontend",
   ],
   caresync: [
     "Finalist at Vibe to Viable, among 100+ teams",

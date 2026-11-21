@@ -21,7 +21,7 @@ Personal portfolio of Ayush, a Computer Science & Engineering student specializi
 | [Breakr](https://github.com/thisIsAyushFr/Skills-For-AI) | Security auditor for AI-built apps: ten scanning agents plus an AI review that keeps only verified issues | Python, Claude Code skill |
 | [NEXUS](https://github.com/thisIsAyushFr/Nexus-Emotion-Detection) | Asteroid survival game that adapts to the player's expression and voice | JavaScript, computer vision |
 
-Also on the site: CareSync (finalist at Vibe to Viable among 100+ teams), EcoSort, BookVerse, FocusBoard, and a Streamlit scientific calculator.
+Also on the site: CareSync (finalist at Vibe to Viable among 100+ teams), RepoMind (built with Agrim Joshi), EcoSort, BookVerse, FocusBoard, and a Streamlit scientific calculator.
 
 ## Tech stack
 
