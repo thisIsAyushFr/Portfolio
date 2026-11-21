@@ -300,11 +300,13 @@ function ProjectRow({
 
   const highlights = HIGHLIGHTS_BY_PROJECT[project.id] ?? [];
   const panelId = `${project.id}-details`;
-  // Every link the project has, so the row shows GitHub even when a live demo exists.
-  const links = [
-    project.live && { href: project.live, label: "Live demo" },
-    project.github && { href: project.github, label: "GitHub" },
-  ].filter((link): link is { href: string; label: string } => Boolean(link));
+  // The row shows the live site when there is one, and GitHub otherwise.
+  // "More details" shows both.
+  const links = project.live
+    ? [{ href: project.live, label: "Live demo" }]
+    : project.github
+      ? [{ href: project.github, label: "GitHub" }]
+      : [];
 
   return (
     <div ref={ref} className="py-10 md:py-16">
