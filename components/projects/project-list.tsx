@@ -14,6 +14,7 @@ import { getLenis } from "@/components/layout/smooth-scroll";
 import { SplitReveal } from "@/components/motion/split-reveal";
 import { SideIndex } from "@/components/projects/side-index";
 import { FillButton } from "@/components/ui/primitives";
+import { PrivateRepoNote } from "@/components/ui/private-repo-note";
 import { ProjectShot } from "@/components/ui/project-shot";
 import { Reveal } from "@/components/ui/reveal";
 import {
@@ -303,7 +304,7 @@ function ProjectRow({
   // The row shows the live site when there is one, and GitHub otherwise.
   // "More details" shows both.
   const links = project.live
-    ? [{ href: project.live, label: "Live demo" }]
+    ? [{ href: project.live, label: project.liveLabel ?? "Live demo" }]
     : project.github
       ? [{ href: project.github, label: "GitHub" }]
       : [];
@@ -394,6 +395,9 @@ function ProjectRow({
                 </a>
               ))}
             </div>
+            {project.privateRepo && links[0]?.label === "GitHub" && (
+              <PrivateRepoNote className="mt-3" />
+            )}
           </Reveal>
         </div>
       </div>
@@ -454,7 +458,7 @@ function ProjectRow({
                 <div className="mt-6 flex flex-wrap gap-3">
                   {project.live && (
                     <FillButton href={project.live} tone="accent" size="sm">
-                      Live demo
+                      {project.liveLabel ?? "Live demo"}
                     </FillButton>
                   )}
                   {project.github && (
@@ -463,6 +467,7 @@ function ProjectRow({
                     </FillButton>
                   )}
                 </div>
+                {project.privateRepo && <PrivateRepoNote className="mt-3" />}
               </motion.div>
             </div>
           </motion.div>

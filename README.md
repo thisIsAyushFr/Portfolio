@@ -18,6 +18,7 @@ Personal portfolio of Ayush, a Computer Science & Engineering student specializi
 | [CPU–GPU Device Selection](https://github.com/thisIsAyushFr/GPU-accelerated-optimization) | Research paper on ML-based CPU vs GPU scheduling that stays robust under hardware and load shift (paper under review) | ML research |
 | [Gesture Racing Game](https://github.com/thisIsAyushFr/Gesture-Racing-Game) | Racing game steered with your hand through the webcam: open palm accelerates, fist brakes, tilt steers | Python, MediaPipe, Pygame |
 | [PromptForge](https://github.com/thisIsAyushFr/PromptForge) | Browser extension that improves prompts for Claude | React, Vite |
+| [Grounded but Not Yet Correct](https://doi.org/10.5281/zenodo.24465084) | Preprint: pre-registered, verifier-based evaluation of four small language models on meal planning; retrieval fixes most nutrient errors, but 30–43% of plans still fail | NLP research, RAG |
 | [Breakr](https://github.com/thisIsAyushFr/Skills-For-AI) | Security auditor for AI-built apps: ten scanning agents plus an AI review that keeps only verified issues | Python, Claude Code skill |
 | [NEXUS](https://github.com/thisIsAyushFr/Nexus-Emotion-Detection) | Asteroid survival game that adapts to the player's expression and voice | JavaScript, computer vision |
 

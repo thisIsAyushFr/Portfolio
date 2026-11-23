@@ -13,6 +13,7 @@ import { useRef, type ReactNode } from "react";
 
 import { SplitReveal } from "@/components/motion/split-reveal";
 import { Label } from "@/components/ui/primitives";
+import { PrivateRepoNote } from "@/components/ui/private-repo-note";
 import { ProjectShot } from "@/components/ui/project-shot";
 import { Reveal } from "@/components/ui/reveal";
 import { FEATURED_COUNT, PROJECTS, type Project } from "@/lib/data";
@@ -209,12 +210,17 @@ function TrailCard({
         </ul>
 
         <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 lg:mt-7">
-          {project.live && <TrailLink href={project.live}>Live demo</TrailLink>}
+          {project.live && (
+            <TrailLink href={project.live}>
+              {project.liveLabel ?? "Live demo"}
+            </TrailLink>
+          )}
           {project.github && (
             <TrailLink href={project.github}>GitHub</TrailLink>
           )}
           <TrailLink href={detailsHref}>Details</TrailLink>
         </div>
+        {project.privateRepo && <PrivateRepoNote className="mt-3" />}
       </div>
 
       {/* Darkens the card while it is off-centre. */}

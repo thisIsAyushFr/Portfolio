@@ -37,9 +37,9 @@ const MOMENTS: Moment[] = [
     note: "CareSync made it through as a finalist.",
   },
   {
-    figure: "01",
-    title: "Paper under review",
-    note: "Robust ML-based CPU–GPU device selection under hardware and load shift.",
+    figure: "02",
+    title: "Research papers",
+    note: "One under review, one preprint: ML scheduling for CPU–GPU systems, and small language models for meal planning.",
   },
   {
     figure: "2026",

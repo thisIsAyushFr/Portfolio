@@ -15,6 +15,10 @@ export type Project = {
   contain?: boolean;
   github?: string;
   live?: string;
+  /** Label for the `live` link, e.g. "Preprint". Defaults to "Live demo". */
+  liveLabel?: string;
+  /** The GitHub repo is private for now; a short notice shows beside its link. */
+  privateRepo?: boolean;
 };
 
 export const PROJECTS: Project[] = [
@@ -41,6 +45,7 @@ export const PROJECTS: Project[] = [
     imageAlt:
       "Rolling slowdown versus oracle for four scheduling methods before and after a load change and a hardware change",
     github: "https://github.com/thisIsAyushFr/GPU-accelerated-optimization",
+    privateRepo: true,
   },
   {
     id: "gesture-racing",
@@ -76,6 +81,22 @@ export const PROJECTS: Project[] = [
     image: "/projects/ecosort.png",
     imageAlt: "EcoSort illustration: a camera frame of a can passing through a CNN to a recyclable verdict",
     github: "https://github.com/thisIsAyushFr/EcoSort",
+  },
+  {
+    id: "slm-meal-plan",
+    title: "Grounded but Not Yet Correct",
+    tagline: "Do small language models get meal-plan numbers right?",
+    description:
+      "A pre-registered evaluation of four small language models on meal planning, with a deterministic verifier that checks every nutrient claim against Indian food-composition data. Across 1,600 runs, retrieval cut the nutrient-claim error rate from about 99% to between 2% and 44% depending on the model, yet 30–43% of plans still failed on food choice, constraints or structure.",
+    meta: "NLP Research · Small Language Models · RAG · Preprint · Private Repo",
+    image: "/projects/slm-meal-plan.png",
+    contain: true,
+    imageAlt:
+      "Pipeline: request, constraint extraction, optional retrieval, small language model producing a JSON plan, and a verifier that recomputes it",
+    github: "https://github.com/thisIsAyushFr/SLM-meal-plan-verifier",
+    privateRepo: true,
+    live: "https://doi.org/10.5281/zenodo.24465084",
+    liveLabel: "Preprint",
   },
   {
     id: "breakr",
@@ -179,6 +200,7 @@ export type ProjectTag = (typeof PROJECT_TAGS)[number];
 export const TAGS_BY_PROJECT: Record<string, ProjectTag[]> = {
   studylens: ["AI"],
   "gesture-racing": ["Computer Vision"],
+  "slm-meal-plan": ["Research", "AI"],
   repomind: ["AI", "Web"],
   breakr: ["AI"],
   "gpu-optimization": ["Research", "AI"],
@@ -212,6 +234,11 @@ export const HIGHLIGHTS_BY_PROJECT: Record<string, string[]> = {
     "Open palm accelerates, a fist brakes, tilting your hand steers",
     "Calibration and a dead zone keep steering steady",
     "Five themes, a rising obstacle count and three lives",
+  ],
+  "slm-meal-plan": [
+    "Pre-registered study: four small language models, 1,600 runs",
+    "A deterministic verifier checks every nutrient claim against Indian food-composition data",
+    "Retrieval cut nutrient errors from about 99% to 2–44%, yet 30–43% of plans still failed",
   ],
   repomind: [
     "Paste a repository URL and get a structured explanation of the codebase",
