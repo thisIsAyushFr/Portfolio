@@ -4,6 +4,8 @@ export type Project = {
   /** Short tagline shown under the title in the featured trail. */
   tagline: string;
   description: string;
+  /** Shorter description for the home page cards, when the full one is long. */
+  summary?: string;
   meta: string;
   image: string;
   imageAlt: string;
@@ -39,7 +41,7 @@ export const PROJECTS: Project[] = [
     tagline: "Robust ML scheduling under hardware and load shift",
     description:
       "Research paper on choosing the CPU or GPU for each task. A LightGBM model trained on 7,000 timing measurements across seven workloads and two GPUs cuts time lost against a perfect choice from 3.8% to 1.6% versus a tuned threshold rule, with uncertainty checks and online learning to adapt when hardware or load changes.",
-    meta: "ML Research · LightGBM · Paper Under Review · Private Repo",
+    meta: "ML Research · LightGBM · Paper Under Review",
     image: "/projects/gpu-optimization.png",
     contain: true,
     imageAlt:
@@ -88,7 +90,9 @@ export const PROJECTS: Project[] = [
     tagline: "Do small language models get meal-plan numbers right?",
     description:
       "A pre-registered evaluation of four small language models on meal planning, with a deterministic verifier that checks every nutrient claim against Indian food-composition data. Across 1,600 runs, retrieval cut the nutrient-claim error rate from about 99% to between 2% and 44% depending on the model, yet 30–43% of plans still failed on food choice, constraints or structure.",
-    meta: "NLP Research · Small Language Models · RAG · Preprint · Private Repo",
+    summary:
+      "A pre-registered, verifier-based evaluation of four small language models on meal planning: retrieval fixes most nutrient errors, but 30–43% of plans still fail.",
+    meta: "NLP Research · Small Language Models · RAG · Preprint",
     image: "/projects/slm-meal-plan.png",
     contain: true,
     imageAlt:

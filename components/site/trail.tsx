@@ -194,7 +194,7 @@ function TrailCard({
         </h3>
         <p className="t-h7 mt-3 lg:mt-5">{project.tagline}</p>
         <p className="t-body mt-2 line-clamp-3 lg:mt-4 lg:line-clamp-none">
-          {project.description}
+          {project.summary ?? project.description}
         </p>
 
         <p className="t-label mt-3 opacity-70 lg:hidden">{project.meta}</p>

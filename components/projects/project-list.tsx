@@ -339,11 +339,13 @@ function ProjectRow({
           }`}
         >
           <Reveal>
-            <p className="t-label">
-              <span className="bg-accent text-cream-light mr-3 px-2 py-1">
+            <p className="t-label flex items-start gap-3">
+              <span className="bg-accent text-cream-light shrink-0 px-2 py-1">
                 {pad(index + 1)}
               </span>
-              <span className="opacity-70">{project.meta}</span>
+              <span className="pt-1 leading-snug opacity-70">
+                {project.meta}
+              </span>
             </p>
           </Reveal>
           <h2 className="t-h1 mt-4 !text-[clamp(2.25rem,4.2vw,4.75rem)]">
